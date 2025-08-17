@@ -45,7 +45,7 @@ export default function MobileNavigation() {
                   height={36}
                   className="rounded-lg"
                 />
-                <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
                   Tuttora
                 </span>
               </Link>
@@ -63,7 +63,7 @@ export default function MobileNavigation() {
               <div className="space-y-8">
                 <Link
                   href="/auth/register"
-                  className="block text-white hover:text-blue-400 transition-colors text-xl font-medium py-4 border-b border-gray-700"
+                  className="block text-white hover:text-blue-400 transition-colors text-sm sm:text-base md:text-lg lg:text-xl font-medium py-4 border-b border-gray-700"
                   onClick={closeMenu}
                   style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}
                 >
@@ -71,7 +71,7 @@ export default function MobileNavigation() {
                 </Link>
                 <Link
                   href="/auth/login"
-                  className="block text-white hover:text-blue-400 transition-colors text-xl font-medium py-4 border-b border-gray-700"
+                  className="block text-white hover:text-blue-400 transition-colors text-sm sm:text-base md:text-lg lg:text-xl font-medium py-4 border-b border-gray-700"
                   onClick={closeMenu}
                   style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}
                 >
@@ -79,7 +79,7 @@ export default function MobileNavigation() {
                 </Link>
                 <Link
                   href="#how-it-works"
-                  className="block text-white hover:text-blue-400 transition-colors text-xl font-medium py-4 border-b border-gray-700"
+                  className="block text-white hover:text-blue-400 transition-colors text-sm sm:text-base md:text-lg lg:text-xl font-medium py-4 border-b border-gray-700"
                   onClick={closeMenu}
                   style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}
                 >
@@ -90,7 +90,7 @@ export default function MobileNavigation() {
 
             {/* Footer */}
             <div className="p-6 border-t border-gray-700">
-              <p className="text-gray-400 text-sm text-center" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
+              <p className="text-gray-400 text-sm sm:text-base md:text-lg lg:text-xl text-center" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
                 A better way to learn.
               </p>
             </div>
