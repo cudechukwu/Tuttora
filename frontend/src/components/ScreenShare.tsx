@@ -166,7 +166,7 @@ export default function ScreenShare({
 
       console.log('Fetching active screen shares for session:', sessionId);
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/${sessionId}/screen-shares`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/screen-share/sessions/${sessionId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -246,7 +246,7 @@ export default function ScreenShare({
       
       // Call backend to start screen share
       const token = localStorage.getItem('accessToken');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/${sessionId}/screen-share/start`, {
+              const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/screen-share/sessions/${sessionId}/start`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -354,7 +354,7 @@ export default function ScreenShare({
       if (activeShare) {
         // Call backend to stop screen share
         const token = localStorage.getItem('accessToken');
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/${sessionId}/screen-share/${activeShare.id}/stop`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/screen-share/sessions/${sessionId}/${activeShare.id}/stop`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -396,7 +396,7 @@ export default function ScreenShare({
 
       console.log('Attempting to join screen share:', { sessionId, shareId });
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/${sessionId}/screen-share/${shareId}/join`, {
+              const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/screen-share/sessions/${sessionId}/${shareId}/join`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -523,7 +523,7 @@ export default function ScreenShare({
 
       console.log('Attempting to leave screen share:', { sessionId, shareId });
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/${sessionId}/screen-share/${shareId}/leave`, {
+              const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/screen-share/sessions/${sessionId}/${shareId}/leave`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
