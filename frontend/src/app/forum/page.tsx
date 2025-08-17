@@ -632,12 +632,12 @@ export default function ForumPage() {
                   className="w-10 h-10 object-contain"
                 />
               </Link>
-              {/* Dashboard link - visible on all screen sizes */}
+              {/* Dashboard link - responsive styling */}
               {userLoading ? (
                 // Show loading state - use stored preference or default
                 <Link 
                   href={`/dashboard/${typeof window !== 'undefined' ? (localStorage.getItem('lastUsedDashboard') || 'tuto') : 'tuto'}`} 
-                  className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors"
+                  className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -645,24 +645,19 @@ export default function ForumPage() {
                 // For BOTH users, show smart default
                 <Link 
                   href={`/dashboard/${lastUsedDashboard}`} 
-                  className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors"
+                  className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors"
                 >
                   {lastUsedDashboard === 'tuto' ? 'Tuto Dashboard' : 'Rookie Dashboard'}
                 </Link>
               ) : shouldShowTutoDashboard ? (
-                <Link href="/dashboard/tuto" className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors">
+                <Link href="/dashboard/tuto" className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors">
                   Tuto Dashboard
                 </Link>
               ) : (
-                <Link href="/dashboard/rookie" className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors">
+                <Link href="/dashboard/rookie" className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors">
                   Rookie Dashboard
                 </Link>
               )}
-              <div className="hidden md:flex items-center space-x-6">
-                <span className="text-gray-700 font-medium tracking-tight">Community Mode</span>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-700 font-normal tracking-tight text-xs md:text-sm">Forum</span>
-              </div>
             </div>
             
             <div className="flex items-center space-x-4">

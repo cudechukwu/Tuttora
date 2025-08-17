@@ -394,19 +394,10 @@ export default function TutoDashboard() {
                     className="w-10 h-10 object-contain"
                   />
               </Link>
-              {/* Forum link - visible on all screen sizes */}
-              <Link href="/forum" className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors">
+              {/* Forum link - responsive styling */}
+              <Link href="/forum" className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors">
                 Forum
               </Link>
-              <div className="hidden md:flex items-center space-x-6">
-                <span className="text-gray-700 font-medium tracking-tight">Community Mode</span>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-700 font-normal tracking-tight text-xs md:text-sm">Tuto Dashboard</span>
-                <span className="text-gray-400">•</span>
-                <Link href="/forum" className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors">
-                  Forum
-                </Link>
-              </div>
             </div>
             
             <div className="flex items-center space-x-4">
