@@ -87,6 +87,9 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
   const [activeSessions, setActiveSessions] = useState<ActiveSession[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasInitialized, setHasInitialized] = useState(false);
+  
+
   
   const { socket, isConnected, isAuthenticated } = useSocket();
   const { handleApiError } = useAuthErrorHandler();
@@ -192,7 +195,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     } finally {
       setLoading(false);
     }
-  }, []); // Remove dependencies to prevent infinite loop
+  }, [showToast, handleApiError]);
 
   const fetchActiveSessions = useCallback(async () => {
     try {
@@ -240,7 +243,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     } finally {
       setLoading(false);
     }
-  }, []); // Remove dependencies to prevent infinite loop
+  }, [showToast, handleApiError]);
 
   const fetchData = useCallback(async () => {
     // Double-check authentication before making API calls
@@ -252,7 +255,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     
     console.log('RookieSessionContext: Fetching data with valid token...');
     await Promise.all([fetchMyRequests(), fetchActiveSessions()]);
-  }, []); // Remove dependencies to prevent infinite loop
+  }, [fetchMyRequests, fetchActiveSessions]);
 
   const withdrawRequest = useCallback(async (sessionId: string) => {
     try {
@@ -288,7 +291,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
         showToast('Failed to withdraw request', 'error');
       }
     }
-  }, []); // Remove dependencies to prevent infinite loop
+  }, [showToast]);
 
   const joinSession = useCallback(async (sessionId: string) => {
     try {
@@ -363,7 +366,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
         showToast(error instanceof Error ? error.message : 'Failed to start session', 'error');
       }
     }
-  }, []); // Remove dependencies to prevent infinite loop
+  }, [requests, activeSessions, showToast]);
 
   const createRequest = useCallback(async (requestData: any) => {
     try {
@@ -426,7 +429,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
       }
       throw err;
     }
-  }, []); // Remove dependencies to prevent infinite loop
+  }, [showToast]);
 
   // State manipulation functions
   const addRequest = useCallback((request: SessionRequest) => {
@@ -604,19 +607,22 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     };
   }, [socket, isConnected, isAuthenticated, updateRequest, addActiveSession, removeRequest, updateActiveSession, removeActiveSession, showToast, requests, convertRequestToActiveSession]);
 
-  // Initial data fetch - only run when authenticated
+
+  
+  // Initial data fetch - only run when authenticated and not already initialized
   useEffect(() => {
-    // Only fetch data when we have a valid token and are authenticated
+    // Only fetch data when we have a valid token, are authenticated, and haven't initialized yet
     const token = localStorage.getItem('accessToken');
-    if (token && isAuthenticated) {
+    if (token && isAuthenticated && !hasInitialized) {
       console.log('RookieSessionContext: Authentication ready, fetching initial data...');
+      setHasInitialized(true); // Mark as initialized to prevent re-fetching
       // Call the functions directly to avoid infinite loop
       fetchMyRequests();
       fetchActiveSessions();
-    } else {
+    } else if (!hasInitialized) {
       console.log('RookieSessionContext: Waiting for authentication before fetching data...');
     }
-  }, [isAuthenticated]); // Only depend on isAuthenticated to prevent infinite loop
+  }, [isAuthenticated, hasInitialized, fetchMyRequests, fetchActiveSessions]); // Include dependencies but prevent re-runs
 
   const value: RookieSessionContextType = {
     // State
