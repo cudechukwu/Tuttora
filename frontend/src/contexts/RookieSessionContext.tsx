@@ -146,7 +146,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     };
   }, []);
 
-  const fetchMyRequests = useCallback(async () => {
+    const fetchMyRequests = useCallback(async () => {
     try {
       // Check authentication first
       const token = localStorage.getItem('accessToken');
@@ -158,7 +158,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
       console.log('RookieSessionContext: Fetching my requests with valid token...');
       setLoading(true);
       setError(null);
-
+      
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/my-requests`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -192,7 +192,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     } finally {
       setLoading(false);
     }
-  }, [showToast, handleApiError]);
+  }, []); // Remove dependencies to prevent infinite loop
 
   const fetchActiveSessions = useCallback(async () => {
     try {
@@ -240,7 +240,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     } finally {
       setLoading(false);
     }
-  }, [showToast, handleApiError]);
+  }, []); // Remove dependencies to prevent infinite loop
 
   const fetchData = useCallback(async () => {
     // Double-check authentication before making API calls
@@ -288,7 +288,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
         showToast('Failed to withdraw request', 'error');
       }
     }
-  }, [showToast]);
+  }, []); // Remove dependencies to prevent infinite loop
 
   const joinSession = useCallback(async (sessionId: string) => {
     try {
@@ -363,7 +363,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
         showToast(error instanceof Error ? error.message : 'Failed to start session', 'error');
       }
     }
-  }, [requests, activeSessions, showToast]);
+  }, []); // Remove dependencies to prevent infinite loop
 
   const createRequest = useCallback(async (requestData: any) => {
     try {
@@ -426,7 +426,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
       }
       throw err;
     }
-  }, [showToast]);
+  }, []); // Remove dependencies to prevent infinite loop
 
   // State manipulation functions
   const addRequest = useCallback((request: SessionRequest) => {
@@ -616,7 +616,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     } else {
       console.log('RookieSessionContext: Waiting for authentication before fetching data...');
     }
-  }, [isAuthenticated, fetchMyRequests, fetchActiveSessions]); // Wait for authentication to be ready
+  }, [isAuthenticated]); // Only depend on isAuthenticated to prevent infinite loop
 
   const value: RookieSessionContextType = {
     // State
