@@ -103,33 +103,29 @@ export default function SessionPage() {
             
             if (response.ok) {
               const profileData = await response.json();
-              const avatar = user.role === 'TUTO' 
-                ? profileData.tutoProfile?.selectedAvatar 
-                : profileData.rookieProfile?.selectedAvatar;
+              const avatar = user.role === 'TUTO' ? profileData.tutoProfile?.selectedAvatar : profileData.rookieProfile?.selectedAvatar;
               
               setCurrentUser({
                 id: user.id,
-                name: user.firstName + ' ' + user.lastName,
+                name: `${user.firstName} ${user.lastName}`,
                 avatar: avatar ? (avatar.startsWith('/images/avatars/') ? avatar : `/images/avatars/${avatar}`) : undefined,
-                role: user.role?.toLowerCase() === 'tuto' ? 'tuto' : 'rookie'
+                role: user.role.toLowerCase() === 'tuto' ? 'tuto' : 'rookie'
               });
             } else {
-              // Fallback to user data from localStorage
               setCurrentUser({
                 id: user.id,
-                name: user.firstName + ' ' + user.lastName,
+                name: `${user.firstName} ${user.lastName}`,
                 avatar: undefined,
-                role: user.role?.toLowerCase() === 'tuto' ? 'tuto' : 'rookie'
+                role: user.role.toLowerCase() === 'tuto' ? 'tuto' : 'rookie'
               });
             }
           } catch (error) {
             console.error('Error fetching user avatar:', error);
-            // Fallback to user data from localStorage
             setCurrentUser({
               id: user.id,
-              name: user.firstName + ' ' + user.lastName,
+              name: `${user.firstName} ${user.lastName}`,
               avatar: undefined,
-              role: user.role?.toLowerCase() === 'tuto' ? 'tuto' : 'rookie'
+              role: user.role.toLowerCase() === 'tuto' ? 'tuto' : 'rookie'
             });
           }
         };
@@ -137,6 +133,28 @@ export default function SessionPage() {
         fetchUserAvatar();
       }
     }
+  }, []);
+
+  // Handle mobile responsiveness
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        // On mobile, set sidebar to full width
+        setSidebarWidth(window.innerWidth);
+      } else {
+        // On desktop, restore default width
+        setSidebarWidth(350);
+      }
+    };
+
+    // Set initial size
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Handle access control
@@ -648,8 +666,8 @@ export default function SessionPage() {
 
   return (
     <div ref={containerRef} className={`h-screen w-full flex ${theme.background} overflow-hidden`}>
-      {/* Sidebar for tools */}
-      <aside className={`w-20 ${theme.sidebar} border-r flex flex-col items-center py-6 space-y-6 shadow-sm`}>
+      {/* Sidebar for tools - Hidden on mobile */}
+      <aside className={`hidden md:flex w-20 ${theme.sidebar} border-r flex-col items-center py-6 space-y-6 shadow-sm`}>
         {tools.map(({ name, icon: Icon }) => (
           <button
             key={name}
@@ -666,39 +684,45 @@ export default function SessionPage() {
       {/* Main tool area */}
       <div className="flex-1 flex flex-col min-w-0 h-full">
         {/* Header */}
-        <header className={`flex items-center justify-between px-8 py-4 ${theme.header} border-b shadow-sm`}>
-          <div className="flex items-center space-x-4">
-            <UserGroupIcon className="w-5 h-5 text-gray-400" />
-            <span className="text-gray-700 font-semibold">
-              {sessionData.tuto ? `${sessionData.tuto.firstName} ${sessionData.tuto.lastName}` : 'Tutor'} & {sessionData.rookie ? `${sessionData.rookie.firstName} ${sessionData.rookie.lastName}` : 'Student'}
-            </span>
-            <span className="text-gray-300">|</span>
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-              sessionStatus === 'IN_PROGRESS' ? 'bg-gray-200 text-gray-700' :
-              sessionStatus === 'ACCEPTED' ? 'bg-gray-100 text-gray-700' :
-              sessionStatus === 'REQUESTED' ? 'bg-gray-50 text-gray-500' :
-              sessionStatus === 'COMPLETED' ? 'bg-gray-100 text-gray-400' :
-              'bg-gray-100 text-gray-700'
-            }`}>
-              {sessionStatus === 'IN_PROGRESS' ? 'Active' :
-               sessionStatus === 'ACCEPTED' ? 'Waiting for Tuto to Start' :
-               sessionStatus === 'REQUESTED' ? 'Requested' :
-               sessionStatus === 'COMPLETED' ? 'Completed' :
-               sessionStatus}
-            </span>
+        <header className={`flex flex-col md:flex-row md:items-center justify-between px-4 md:px-8 py-4 ${theme.header} border-b shadow-sm space-y-3 md:space-y-0`}>
+          <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+            <div className="flex items-center space-x-2">
+              <UserGroupIcon className="w-5 h-5 text-gray-400" />
+              <span className="text-gray-700 font-semibold text-sm md:text-base">
+                {sessionData.tuto ? `${sessionData.tuto.firstName} ${sessionData.tuto.lastName}` : 'Tutor'} & {sessionData.rookie ? `${sessionData.rookie.firstName} ${sessionData.rookie.lastName}` : 'Student'}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-gray-300 hidden md:inline">|</span>
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                sessionStatus === 'IN_PROGRESS' ? 'bg-gray-200 text-gray-700' :
+                sessionStatus === 'ACCEPTED' ? 'bg-gray-100 text-gray-700' :
+                sessionStatus === 'REQUESTED' ? 'bg-gray-50 text-gray-500' :
+                sessionStatus === 'COMPLETED' ? 'bg-gray-100 text-gray-400' :
+                'bg-gray-100 text-gray-700'
+              }`}>
+                {sessionStatus === 'IN_PROGRESS' ? 'Active' :
+                 sessionStatus === 'ACCEPTED' ? 'Waiting for Tuto to Start' :
+                 sessionStatus === 'REQUESTED' ? 'Requested' :
+                 sessionStatus === 'COMPLETED' ? 'Completed' :
+                 sessionStatus}
+              </span>
+            </div>
             {timerState.isActive && sessionStatus !== 'COMPLETED' && (
               <>
-                <span className="text-gray-300">|</span>
-                <ClockIcon className="w-5 h-5 text-gray-400" />
-                <span className={`font-semibold text-gray-700`}>
-                  {formatTime(timerState.remainingTime)}
-                </span>
-                <span className="text-xs text-gray-400 ml-2">
-                  ({Math.floor(timerState.remainingTime / 60)} min remaining)
-                </span>
-                {timerState.isPaused && (
-                  <span className="text-xs text-yellow-600 ml-2">(Paused)</span>
-                )}
+                <span className="text-gray-300 hidden md:inline">|</span>
+                <div className="flex items-center space-x-1">
+                  <ClockIcon className="w-4 h-4 text-gray-400" />
+                  <span className={`font-semibold text-gray-700 text-sm`}>
+                    {formatTime(timerState.remainingTime)}
+                  </span>
+                  <span className="text-xs text-gray-400 ml-1 hidden md:inline">
+                    ({Math.floor(timerState.remainingTime / 60)} min remaining)
+                  </span>
+                  {timerState.isPaused && (
+                    <span className="text-xs text-yellow-600 ml-1">(Paused)</span>
+                  )}
+                </div>
               </>
             )}
             {!isConnected && (
@@ -737,9 +761,9 @@ export default function SessionPage() {
               <button 
                 onClick={startSession}
                 disabled={timerLoading}
-                className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50"
+                className="flex items-center px-3 md:px-4 py-2 bg-gray-700 text-white rounded-lg text-xs md:text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50"
               >
-                <PlayIcon className="w-4 h-4 mr-2" /> Start Session
+                <PlayIcon className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" /> Start Session
               </button>
             )}
             
@@ -749,17 +773,17 @@ export default function SessionPage() {
                 {canPause && (
                   <button 
                     onClick={pauseTimer}
-                    className="flex items-center px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
+                    className="flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gray-100 text-gray-700 rounded-lg text-xs md:text-sm font-medium hover:bg-gray-200 transition-colors"
                   >
-                    <PauseIcon className="w-4 h-4 mr-1" /> Pause
+                    <PauseIcon className="w-3 h-3 md:w-4 md:h-4 mr-1" /> Pause
                   </button>
                 )}
                 {canResume && (
                   <button 
                     onClick={resumeTimer}
-                    className="flex items-center px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
+                    className="flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gray-100 text-gray-700 rounded-lg text-xs md:text-sm font-medium hover:bg-gray-200 transition-colors"
                   >
-                    <PlayIcon className="w-4 h-4 mr-1" /> Resume
+                    <PlayIcon className="w-3 h-3 md:w-4 md:h-4 mr-1" /> Resume
                   </button>
                 )}
                 {canEnd && (
@@ -770,9 +794,9 @@ export default function SessionPage() {
                         videoCallRef.current?.leaveCall();
                       }
                     }}
-                    className="flex items-center px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
+                    className="flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gray-100 text-gray-700 rounded-lg text-xs md:text-sm font-medium hover:bg-gray-200 transition-colors"
                   >
-                    <StopIcon className="w-4 h-4 mr-1" /> End Session
+                    <StopIcon className="w-3 h-3 md:w-4 md:h-4 mr-1" /> End Session
                   </button>
                 )}
                 <button 
@@ -780,9 +804,9 @@ export default function SessionPage() {
                     // TODO: Implement report logic
                     console.log('Reporting session...');
                   }}
-                  className="flex items-center px-3 py-1.5 bg-yellow-50 text-yellow-600 rounded-lg text-sm font-medium hover:bg-yellow-100 transition-colors"
+                  className="flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-yellow-50 text-yellow-600 rounded-lg text-xs md:text-sm font-medium hover:bg-yellow-100 transition-colors"
                 >
-                  <ExclamationTriangleIcon className="w-4 h-4 mr-1" /> Report
+                  <ExclamationTriangleIcon className="w-3 h-3 md:w-4 md:h-4 mr-1" /> Report
                 </button>
               </>
             )}
@@ -790,8 +814,8 @@ export default function SessionPage() {
         </header>
 
         <div className="flex flex-1 min-h-0 h-full">
-          {/* Main collaborative tool area */}
-          <main className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden">
+          {/* Main collaborative tool area - Hidden on mobile */}
+          <main className="hidden md:flex flex-1 flex-col min-w-0 min-h-0 overflow-hidden">
             <div className="w-full h-full min-w-0">
               {activeTool === 'Whiteboard' ? (
                 <InteractiveWhiteboard 
@@ -833,18 +857,40 @@ export default function SessionPage() {
             </div>
           </main>
 
-          {/* Drag handle */}
+          {/* Mobile message - Show when tools are hidden */}
+          <div className="md:hidden flex-1 flex items-center justify-center bg-gray-50">
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ChatBubbleLeftRightIcon className="w-8 h-8 text-gray-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-700 mb-2">Mobile View</h3>
+              <p className="text-sm text-gray-500 mb-4">
+                Collaborative tools are optimized for desktop. Use the chat interface below for communication.
+              </p>
+              <div className="text-xs text-gray-400">
+                <p>• Whiteboard, Code Editor, Screen Share, and File Upload</p>
+                <p>• Available on desktop and tablet devices</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Drag handle - Hidden on mobile */}
           <div
-            className="w-2 cursor-col-resize bg-transparent hover:bg-gray-200 transition-colors duration-150"
+            className="hidden md:block w-2 cursor-col-resize bg-transparent hover:bg-gray-200 transition-colors duration-150"
             style={{ zIndex: 20, cursor: isResizing ? 'col-resize' : 'ew-resize' }}
             onMouseDown={startResize}
             aria-label="Resize chat sidebar"
             role="separator"
           />
-          {/* Chat panel */}
+          {/* Chat panel - Full width on mobile */}
           <aside
-            className={`${theme.chatPanel} border-l-2 flex flex-col overflow-hidden`}
-            style={{ width: sidebarWidth, minWidth: 260, maxWidth: 420, transition: 'width 0.15s' }}
+            className={`${theme.chatPanel} border-l-0 md:border-l-2 flex flex-col overflow-hidden w-full md:w-auto`}
+            style={{ 
+              width: sidebarWidth, 
+              minWidth: 260, 
+              maxWidth: 420, 
+              transition: 'width 0.15s' 
+            }}
           >
             <Chat
               sessionId={sessionId}
@@ -865,9 +911,9 @@ export default function SessionPage() {
         </div>
 
         {/* Footer */}
-        <footer className={`px-8 py-2 ${theme.footer} border-t flex items-center justify-between text-xs text-gray-400`}>
-          <span>Session is being recorded for quality assurance. Recording will only be reviewed if reported.</span>
-                      <span>Powered by Tuttora</span>
+        <footer className={`px-4 md:px-8 py-2 ${theme.footer} border-t flex flex-col md:flex-row md:items-center justify-between text-xs text-gray-400 space-y-2 md:space-y-0`}>
+          <span className="text-center md:text-left">Session is being recorded for quality assurance. Recording will only be reviewed if reported.</span>
+          <span className="text-center md:text-right">Powered by Tuttora</span>
         </footer>
       </div>
 
