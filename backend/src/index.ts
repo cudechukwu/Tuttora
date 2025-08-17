@@ -130,6 +130,23 @@ server.listen(PORT, () => {
   console.log(`🔌 WebSocket server is ready for real-time communication`);
   
   // Grace period service already started
+  
+  // Auto-run seed if RUN_SEED environment variable is set
+  if (process.env.RUN_SEED === 'true') {
+    console.log('🌱 RUN_SEED detected - starting database seed...');
+    import('./database/seed').then(async () => {
+      try {
+        // The seed file runs automatically when imported
+        console.log('✅ Database seed completed successfully!');
+        // Remove the environment variable after successful seed
+        delete process.env.RUN_SEED;
+      } catch (error) {
+        console.error('❌ Database seed failed:', error);
+      }
+    }).catch((error) => {
+      console.error('❌ Failed to import seed module:', error);
+    });
+  }
 });
 
 export { socketService }; 
