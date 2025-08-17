@@ -252,7 +252,7 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     
     console.log('RookieSessionContext: Fetching data with valid token...');
     await Promise.all([fetchMyRequests(), fetchActiveSessions()]);
-  }, [fetchMyRequests, fetchActiveSessions]);
+  }, []); // Remove dependencies to prevent infinite loop
 
   const withdrawRequest = useCallback(async (sessionId: string) => {
     try {
@@ -610,11 +610,13 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     const token = localStorage.getItem('accessToken');
     if (token && isAuthenticated) {
       console.log('RookieSessionContext: Authentication ready, fetching initial data...');
-      fetchData();
+      // Call the functions directly to avoid infinite loop
+      fetchMyRequests();
+      fetchActiveSessions();
     } else {
       console.log('RookieSessionContext: Waiting for authentication before fetching data...');
     }
-  }, [isAuthenticated, fetchData]); // Wait for authentication to be ready
+  }, [isAuthenticated, fetchMyRequests, fetchActiveSessions]); // Wait for authentication to be ready
 
   const value: RookieSessionContextType = {
     // State
