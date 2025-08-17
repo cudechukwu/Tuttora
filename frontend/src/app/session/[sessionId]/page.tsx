@@ -34,6 +34,7 @@ export default function SessionPage() {
   const [isResizing, setIsResizing] = useState(false);
   const [isVideoCallVisible, setIsVideoCallVisible] = useState(false);
   const [urlStatus, setUrlStatus] = useState<string | null>(null);
+  const [showMobileMessage, setShowMobileMessage] = useState(true);
   
   // Feedback modal state
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
@@ -748,6 +749,20 @@ export default function SessionPage() {
             )}
           </div>
           <div className="flex items-center space-x-3">
+            {/* Mobile info button - Show when mobile message is hidden */}
+            {!showMobileMessage && (
+              <button
+                onClick={() => setShowMobileMessage(true)}
+                className="md:hidden w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors"
+                aria-label="Show mobile info"
+                title="Show mobile info"
+              >
+                <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
+            )}
+            
             {/* Grace Period Countdown (for accepted sessions) */}
             {sessionData?.status === 'ACCEPTED' && sessionData?.gracePeriodEnd && (
               <GracePeriodCountdown 
@@ -858,21 +873,32 @@ export default function SessionPage() {
           </main>
 
           {/* Mobile message - Show when tools are hidden */}
-          <div className="md:hidden flex-1 flex items-center justify-center bg-gray-50">
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ChatBubbleLeftRightIcon className="w-8 h-8 text-gray-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">Mobile View</h3>
-              <p className="text-sm text-gray-500 mb-4">
-                Collaborative tools are optimized for desktop. Use the chat interface below for communication.
-              </p>
-              <div className="text-xs text-gray-400">
-                <p>• Whiteboard, Code Editor, Screen Share, and File Upload</p>
-                <p>• Available on desktop and tablet devices</p>
+          {showMobileMessage && (
+            <div className="md:hidden flex-1 flex items-center justify-center bg-gray-50 relative">
+              <button
+                onClick={() => setShowMobileMessage(false)}
+                className="absolute top-4 right-4 w-8 h-8 bg-gray-200 hover:bg-gray-300 rounded-full flex items-center justify-center transition-colors"
+                aria-label="Close mobile message"
+              >
+                <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <div className="text-center p-6">
+                <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <ChatBubbleLeftRightIcon className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-700 mb-2">Mobile View</h3>
+                <p className="text-sm text-gray-500 mb-4">
+                  Collaborative tools are optimized for desktop. Use the chat interface below for communication.
+                </p>
+                <div className="text-xs text-gray-400">
+                  <p>• Whiteboard, Code Editor, Screen Share, and File Upload</p>
+                  <p>• Available on desktop and tablet devices</p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Drag handle - Hidden on mobile */}
           <div
