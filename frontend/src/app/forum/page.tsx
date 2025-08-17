@@ -632,68 +632,34 @@ export default function ForumPage() {
                   className="w-10 h-10 object-contain"
                 />
               </Link>
+              {/* Dashboard link - visible on all screen sizes */}
+              {userLoading ? (
+                // Show loading state - use stored preference or default
+                <Link 
+                  href={`/dashboard/${typeof window !== 'undefined' ? (localStorage.getItem('lastUsedDashboard') || 'tuto') : 'tuto'}`} 
+                  className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors"
+                >
+                  Dashboard
+                </Link>
+              ) : isBothUser ? (
+                // For BOTH users, show smart default
+                <Link 
+                  href={`/dashboard/${lastUsedDashboard}`} 
+                  className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors"
+                >
+                  {lastUsedDashboard === 'tuto' ? 'Tuto Dashboard' : 'Rookie Dashboard'}
+                </Link>
+              ) : shouldShowTutoDashboard ? (
+                <Link href="/dashboard/tuto" className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors">
+                  Tuto Dashboard
+                </Link>
+              ) : (
+                <Link href="/dashboard/rookie" className="text-gray-700 font-medium tracking-tight text-sm hover:text-gray-900 transition-colors">
+                  Rookie Dashboard
+                </Link>
+              )}
               <div className="hidden md:flex items-center space-x-6">
                 <span className="text-gray-700 font-medium tracking-tight">Community Mode</span>
-                <span className="text-gray-400">•</span>
-                {userLoading ? (
-                  // Show loading state - use stored preference or default
-                  <>
-                    {(() => {
-                      const storedPreference = typeof window !== 'undefined' ? (localStorage.getItem('lastUsedDashboard') || 'tuto') : 'tuto';
-                      return storedPreference === 'tuto' ? (
-                        <Link href="/dashboard/tuto" className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors">
-                          Tuto Dashboard
-                        </Link>
-                      ) : (
-                        <Link href="/dashboard/rookie" className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors">
-                          Rookie Dashboard
-                        </Link>
-                      );
-                    })()}
-                  </>
-                ) : isBothUser ? (
-                  // For BOTH users, show smart default with dropdown
-                  <div className="relative group">
-                    <button 
-                      className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors flex items-center"
-                      onClick={() => {
-                        const newDashboard = lastUsedDashboard === 'tuto' ? 'rookie' : 'tuto';
-                        setLastUsedDashboardPreference(newDashboard);
-                        window.location.href = `/dashboard/${newDashboard}`;
-                      }}
-                    >
-                      {lastUsedDashboard === 'tuto' ? 'Tuto Dashboard' : 'Rookie Dashboard'}
-                      <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    {/* Dropdown menu */}
-                    <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 min-w-[140px]">
-                      <Link 
-                        href="/dashboard/tuto" 
-                        className="block px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
-                        onClick={() => setLastUsedDashboardPreference('tuto')}
-                      >
-                        Tuto Dashboard
-                      </Link>
-                      <Link 
-                        href="/dashboard/rookie" 
-                        className="block px-3 py-2 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
-                        onClick={() => setLastUsedDashboardPreference('rookie')}
-                      >
-                        Rookie Dashboard
-                      </Link>
-                    </div>
-                  </div>
-                ) : shouldShowTutoDashboard ? (
-                  <Link href="/dashboard/tuto" className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors">
-                    Tuto Dashboard
-                  </Link>
-                ) : (
-                  <Link href="/dashboard/rookie" className="text-gray-400 font-normal tracking-tight text-xs md:text-sm hover:text-gray-600 transition-colors">
-                    Rookie Dashboard
-                  </Link>
-                )}
                 <span className="text-gray-400">•</span>
                 <span className="text-gray-700 font-normal tracking-tight text-xs md:text-sm">Forum</span>
               </div>

@@ -910,11 +910,11 @@ export default function SessionPage() {
           />
           {/* Chat panel - Full width on mobile */}
           <aside
-            className={`${theme.chatPanel} border-l-0 md:border-l-2 flex flex-col overflow-hidden w-full md:w-auto`}
+            className={`${theme.chatPanel} border-l-0 md:border-l-2 flex flex-col overflow-hidden ${!showMobileMessage ? 'w-full' : 'w-full md:w-auto'}`}
             style={{ 
-              width: sidebarWidth, 
-              minWidth: 260, 
-              maxWidth: 420, 
+              width: !showMobileMessage ? '100%' : sidebarWidth, 
+              minWidth: !showMobileMessage ? '100%' : 260, 
+              maxWidth: !showMobileMessage ? '100%' : 420, 
               transition: 'width 0.15s' 
             }}
           >
