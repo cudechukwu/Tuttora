@@ -473,7 +473,7 @@ export default function HomePage() {
       </section>
 
       {/* Product Section */}
-      <section className="py-12 sm:py-16 md:py-20 relative z-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/landing/section/whiteSection.jpg)' }}>
+              <section className="py-12 sm:py-16 md:py-20 relative z-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/landing/section/whitesection.jpg)' }}>
         {/* White overlay to lighten the image */}
         <div className="absolute inset-0 bg-white/60 pointer-events-none"></div>
         <div className="container mx-auto px-4 relative z-10">
@@ -684,7 +684,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section - Desktop Only */}
-      <section className="hidden lg:block py-12 sm:py-16 md:py-20 relative z-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/landing/section/whiteSection.jpg)' }}>
+      <section className="hidden lg:block py-12 sm:py-16 md:py-20 relative z-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/landing/section/whitesection.jpg)' }}>
         {/* White overlay to lighten the image */}
         <div className="absolute inset-0 bg-white/60 pointer-events-none"></div>
         <div className="w-full relative z-10">
@@ -732,7 +732,7 @@ export default function HomePage() {
       </section>
 
       {/* Mobile Testimonials Section - Mobile Only */}
-      <section className="block lg:hidden py-12 sm:py-16 relative z-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/landing/section/whiteSection.jpg)' }}>
+      <section className="block lg:hidden py-12 sm:py-16 relative z-10 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/images/landing/section/whitesection.jpg)' }}>
         {/* White overlay to lighten the image */}
         <div className="absolute inset-0 bg-white/60 pointer-events-none"></div>
         <div className="w-full relative z-10">
