@@ -125,7 +125,9 @@ async function main() {
   const berkeley = await prisma.university.findUnique({ where: { domain: 'berkeley.edu' } });
   const stanford = await prisma.university.findUnique({ where: { domain: 'stanford.edu' } });
   const mit = await prisma.university.findUnique({ where: { domain: 'mit.edu' } });
+  const wesleyan = await prisma.university.findUnique({ where: { domain: 'wesleyan.edu' } });
 
+  // Create courses for other universities
   for (const course of courses) {
     const universityId = berkeley?.id || stanford?.id || mit?.id;
     if (!universityId) continue;
@@ -148,6 +150,92 @@ async function main() {
     } else {
       console.log(`⏭️  Course already exists: ${course.code}`);
     }
+  }
+
+  // Create Wesleyan University courses (these will show up in departments)
+  if (wesleyan?.id) {
+    const wesleyanCourses = [
+      {
+        code: 'COMP112',
+        number: '112',
+        title: 'Introduction to Programming',
+        department: 'Computer Science',
+        credits: 1,
+        professor: 'Dr. Ethan Kleinberg',
+        term: 'Fall 2025',
+        universityId: wesleyan.id
+      },
+      {
+        code: 'COMP211',
+        number: '211',
+        title: 'Data Structures',
+        department: 'Computer Science',
+        credits: 1,
+        professor: 'Dr. Sarah Johnson',
+        term: 'Fall 2025',
+        universityId: wesleyan.id
+      },
+      {
+        code: 'MATH121',
+        number: '121',
+        title: 'Calculus I',
+        department: 'Mathematics',
+        credits: 1,
+        professor: 'Dr. Michael Chen',
+        term: 'Fall 2025',
+        universityId: wesleyan.id
+      },
+      {
+        code: 'MATH122',
+        number: '122',
+        title: 'Calculus II',
+        department: 'Mathematics',
+        credits: 1,
+        professor: 'Dr. Emily Davis',
+        term: 'Fall 2025',
+        universityId: wesleyan.id
+      },
+      {
+        code: 'PHYS111',
+        number: '111',
+        title: 'General Physics I',
+        department: 'Physics',
+        credits: 1,
+        professor: 'Dr. Robert Wilson',
+        term: 'Fall 2025',
+        universityId: wesleyan.id
+      },
+      {
+        code: 'CHEM141',
+        number: '141',
+        title: 'General Chemistry I',
+        department: 'Chemistry',
+        credits: 1,
+        professor: 'Dr. Lisa Thompson',
+        term: 'Fall 2025',
+        universityId: wesleyan.id
+      }
+    ];
+
+    for (const course of wesleyanCourses) {
+      const existing = await prisma.course.findFirst({
+        where: { 
+          code: course.code,
+          universityId: course.universityId
+        }
+      });
+      
+      if (!existing) {
+        await prisma.course.create({ 
+          data: course
+        });
+        console.log(`✅ Created Wesleyan course: ${course.code}`);
+      } else {
+        console.log(`⏭️  Wesleyan course already exists: ${course.code}`);
+      }
+    }
+  } else {
+    console.log('⚠️  Wesleyan University not found, skipping Wesleyan courses');
   }
 
   // Create comprehensive sample users with profiles and dashboard stats
