@@ -55,7 +55,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated }: Crea
       const token = localStorage.getItem('accessToken');
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       
-      const response = await fetch('/api/forum/posts', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/posts`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
