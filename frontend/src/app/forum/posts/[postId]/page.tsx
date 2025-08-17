@@ -179,7 +179,7 @@ export default function ForumPostPage() {
         setLoading(true);
         const token = localStorage.getItem('accessToken');
         
-        const response = await fetch(`/api/forum/posts/${postId}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/posts/${postId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ export default function ForumPostPage() {
     try {
       const token = localStorage.getItem('accessToken');
       
-      const response = await fetch('/api/forum/votes', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/votes`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -341,7 +341,7 @@ export default function ForumPostPage() {
     try {
       const token = localStorage.getItem('accessToken');
       
-      const response = await fetch('/api/forum/votes', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/votes`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -432,7 +432,7 @@ export default function ForumPostPage() {
 
     try {
       const token = localStorage.getItem('accessToken');
-      const response = await fetch(`/api/forum/comments/${commentId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/comments/${commentId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -508,7 +508,7 @@ export default function ForumPostPage() {
 
     try {
       const token = localStorage.getItem('accessToken');
-      const response = await fetch('/api/forum/comments', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/comments`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
