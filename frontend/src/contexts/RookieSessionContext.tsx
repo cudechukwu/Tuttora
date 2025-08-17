@@ -148,14 +148,16 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
 
   const fetchMyRequests = useCallback(async () => {
     try {
-      console.log('RookieSessionContext: Fetching my requests...');
-      setLoading(true);
-      setError(null);
-      
+      // Check authentication first
       const token = localStorage.getItem('accessToken');
       if (!token) {
-        throw new Error('No authentication token found');
+        console.log('RookieSessionContext: No token found, skipping fetchMyRequests');
+        return;
       }
+      
+      console.log('RookieSessionContext: Fetching my requests with valid token...');
+      setLoading(true);
+      setError(null);
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/my-requests`, {
         headers: {
@@ -194,14 +196,16 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
 
   const fetchActiveSessions = useCallback(async () => {
     try {
-      console.log('RookieSessionContext: Fetching active sessions...');
-      setLoading(true);
-      setError(null);
-      
+      // Check authentication first
       const token = localStorage.getItem('accessToken');
       if (!token) {
-        throw new Error('No authentication token found');
+        console.log('RookieSessionContext: No token found, skipping fetchActiveSessions');
+        return;
       }
+      
+      console.log('RookieSessionContext: Fetching active sessions with valid token...');
+      setLoading(true);
+      setError(null);
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/my-active-sessions`, {
         headers: {
@@ -239,17 +243,27 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
   }, [showToast, handleApiError]);
 
   const fetchData = useCallback(async () => {
+    // Double-check authentication before making API calls
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.log('RookieSessionContext: No token found, skipping data fetch');
+      return;
+    }
+    
+    console.log('RookieSessionContext: Fetching data with valid token...');
     await Promise.all([fetchMyRequests(), fetchActiveSessions()]);
   }, [fetchMyRequests, fetchActiveSessions]);
 
   const withdrawRequest = useCallback(async (sessionId: string) => {
     try {
-      setError(null);
-      
+      // Check authentication first
       const token = localStorage.getItem('accessToken');
       if (!token) {
-        throw new Error('No authentication token found');
+        console.log('RookieSessionContext: No token found, skipping withdrawRequest');
+        return;
       }
+      
+      setError(null);
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/requests/${sessionId}`, {
         method: 'DELETE',
@@ -278,10 +292,11 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
 
   const joinSession = useCallback(async (sessionId: string) => {
     try {
-      // Get token from localStorage
+      // Check authentication first
       const token = localStorage.getItem('accessToken');
       if (!token) {
-        throw new Error('No authentication token found. Please log in again.');
+        console.log('RookieSessionContext: No token found, skipping joinSession');
+        return;
       }
 
       // Find the session to check its status
@@ -352,12 +367,14 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
 
   const createRequest = useCallback(async (requestData: any) => {
     try {
-      setError(null);
-      
+      // Check authentication first
       const token = localStorage.getItem('accessToken');
       if (!token) {
-        throw new Error('No authentication token found');
+        console.log('RookieSessionContext: No token found, skipping createRequest');
+        return;
       }
+      
+      setError(null);
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/requests`, {
         method: 'POST',
@@ -587,10 +604,17 @@ export const RookieSessionProvider: React.FC<RookieSessionProviderProps> = ({
     };
   }, [socket, isConnected, isAuthenticated, updateRequest, addActiveSession, removeRequest, updateActiveSession, removeActiveSession, showToast, requests, convertRequestToActiveSession]);
 
-  // Initial data fetch - only run once on mount
+  // Initial data fetch - only run when authenticated
   useEffect(() => {
-    fetchData();
-  }, []); // Empty dependency array to run only once
+    // Only fetch data when we have a valid token and are authenticated
+    const token = localStorage.getItem('accessToken');
+    if (token && isAuthenticated) {
+      console.log('RookieSessionContext: Authentication ready, fetching initial data...');
+      fetchData();
+    } else {
+      console.log('RookieSessionContext: Waiting for authentication before fetching data...');
+    }
+  }, [isAuthenticated, fetchData]); // Wait for authentication to be ready
 
   const value: RookieSessionContextType = {
     // State

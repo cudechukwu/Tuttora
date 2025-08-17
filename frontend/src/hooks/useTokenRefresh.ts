@@ -25,7 +25,7 @@ export const useTokenRefresh = () => {
     try {
       isRefreshing.current = true;
       
-      const response = await fetch('http://localhost:5001/api/auth/refresh', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/auth/refresh`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

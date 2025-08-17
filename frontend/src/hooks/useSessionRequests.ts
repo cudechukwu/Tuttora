@@ -40,15 +40,18 @@ export const useSessionRequests = (showToast?: (message: string, type: string) =
 
   const fetchRequests = useCallback(async () => {
     try {
-      setLoading(true);
-      setError(null);
-      
+      // Check authentication first
       const token = localStorage.getItem('accessToken');
       if (!token) {
-        throw new Error('No authentication token found');
+        console.log('useSessionRequests: No token found, skipping fetchRequests');
+        setLoading(false);
+        return;
       }
+      
+      setLoading(true);
+      setError(null);
 
-      const response = await fetch('http://localhost:5001/api/sessions/requests', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/sessions/requests`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -143,9 +146,16 @@ export const useSessionRequests = (showToast?: (message: string, type: string) =
     };
   }, [socket, addRequest, removeRequest]);
 
-  // Initial fetch
+  // Initial fetch - only when authenticated
   useEffect(() => {
-    fetchRequests();
+    // Only fetch when we have a valid token
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      console.log('useSessionRequests: Token found, fetching initial requests...');
+      fetchRequests();
+    } else {
+      console.log('useSessionRequests: No token found, waiting for authentication...');
+    }
   }, [fetchRequests]);
 
   return {
