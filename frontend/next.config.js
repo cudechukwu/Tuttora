@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Force redeploy to pick up environment variables
   trailingSlash: true,
   images: {
     unoptimized: true,
