@@ -1,0 +1,39 @@
+{
+  "name": "tuttopassa-webapp",
+  "version": "1.0.0",
+  "description": "Tuttora - Peer-to-peer academic assistance platform",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install && cd ../shared && npm install",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm run test",
+    "test:backend": "cd backend && npm run test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "education",
+    "peer-tutoring",
+    "academic-support",
+    "university"
+  ],
+  "author": "Tuttora Team",
+  "license": "MIT",
+  "dependencies": {
+    "@daily-co/daily-js": "^0.81.0",
+    "@daily-co/daily-react": "^0.23.1",
+    "@heroicons/react": "^2.1.5"
+  }
+}

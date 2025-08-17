@@ -1,0 +1,773 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String               @id @default(cuid())
+  email                  String               @unique
+  password               String
+  username               String               @unique
+  firstName              String
+  lastName               String
+  role                   UserRole             @default(ROOKIE)
+  isOnline               Boolean              @default(false)
+  isAvailable            Boolean              @default(false)
+  lastSeen               DateTime             @default(now())
+  profileCompleted       Boolean              @default(false)
+  universityId           String
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+  rookieProfileCompleted Boolean              @default(false)
+  tutoProfileCompleted   Boolean              @default(false)
+  aiDisclaimerAcceptedAt DateTime?
+  aiDisclaimerVersion    Int?
+  sessionCount           Int                  @default(0)
+  averageRating          Float                @default(5.0)
+  totalRatings           Int                  @default(0)
+  achievements           Achievement[]
+  aiConsents             AIConsent[]
+  aiGeneratedContent     AIGeneratedContent[]
+  aiPreferences          AIPreference[]
+  forumComments          ForumComment[]       @relation("ForumComments")
+  forumPosts             ForumPost[]          @relation("ForumPosts")
+  forumReports           ForumReport[]        @relation("ForumReports")
+  forumReportResolutions ForumReport[]        @relation("ForumReportResolutions")
+  forumVotes             ForumVote[]          @relation("ForumVotes")
+  receivedMessages       Message[]            @relation("ReceivedMessages")
+  sentMessages           Message[]            @relation("SentMessages")
+  rejectedRequests       RejectedRequest[]
+  rookieProfile          RookieProfile?
+  saved_posts            saved_posts[]
+  screenShareViewers     ScreenShareViewer[]  @relation("ScreenShareViewers")
+  screenShares           ScreenShare[]        @relation("ScreenShares")
+  sessionParticipants    SessionParticipant[]
+  rookieSessions         Session[]            @relation("RookieSessions")
+  tutoSessions           Session[]            @relation("TutoSessions")
+  tutoProfile            TutoProfile?
+  userBadges             UserBadge[]
+  userCourses            UserCourse[]
+  userSkills             UserSkill[]
+  userStats              UserStats?
+  university             University           @relation(fields: [universityId], references: [id])
+
+  @@map("users")
+}
+
+model University {
+  id         String      @id @default(cuid())
+  name       String
+  domain     String      @unique
+  location   String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  courses    Course[]
+  forumPosts ForumPost[] @relation("ForumPosts")
+  users      User[]
+
+  @@map("universities")
+}
+
+model Course {
+  id           String       @id @default(cuid())
+  code         String
+  department   String
+  universityId String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  credits      Float        @default(1.0)
+  number       String
+  professor    String?
+  term         String?
+  title        String
+  university   University   @relation(fields: [universityId], references: [id])
+  sessions     Session[]
+  userCourses  UserCourse[]
+
+  @@unique([code, universityId])
+  @@map("courses")
+}
+
+model UserCourse {
+  id               String            @id @default(cuid())
+  expertiseLevel   ExpertiseLevel    @default(BEGINNER)
+  isActive         Boolean           @default(true)
+  userId           String
+  courseId         String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  proficiencyLevel ProficiencyLevel?
+  semesterTaken    Semester?
+  yearCompleted    Int?
+  courseNotes      String?
+  courseReview     String?
+  difficultyRating Int?
+  grade            String?
+  professor        String?
+  timeSpent        Int?
+  wouldRecommend   Boolean?
+  course           Course            @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@map("user_courses")
+}
+
+model UserSkill {
+  id               String        @id @default(cuid())
+  skillName        String
+  proficiencyLevel SkillLevel
+  category         SkillCategory
+  selfAssessment   Int?
+  evidence         String[]
+  userId           String
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillName])
+  @@map("user_skills")
+}
+
+model Session {
+  id                     String               @id @default(cuid())
+  status                 SessionStatus        @default(REQUESTED)
+  startTime              DateTime
+  endTime                DateTime?
+  duration               Int?
+  notes                  String?
+  rating                 Int?
+  feedback               String?
+  tutoId                 String?
+  rookieId               String
+  courseId               String?
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+  isActive               Boolean              @default(false)
+  sessionType            String?
+  timerDuration          Int?
+  timerStartTime         DateTime?
+  title                  String?
+  acceptedAt             DateTime?
+  gracePeriodEnd         DateTime?
+  callActive             Boolean              @default(false)
+  callEndTime            DateTime?
+  callStartTime          DateTime?
+  dailyRoomName          String?
+  dailyRoomUrl           String?
+  rookieInCall           Boolean              @default(false)
+  tutoInCall             Boolean              @default(false)
+  canceledTutos          String[]
+  rookieCanceledAt       DateTime?
+  rookieJoinedAt         DateTime?
+  rookieAcceptedAt       DateTime?
+  rookieFeedback         String?
+  rookieRating           Int?
+  tutoFeedback           String?
+  tutoRating             Int?
+  rookieAnonymous        Boolean              @default(false)
+  tutoAnonymous          Boolean              @default(false)
+  rookieFeedbackHiddenBy String?
+  tutoFeedbackHiddenBy   String?
+  aiGeneratedContent     AIGeneratedContent[]
+  messages               Message[]
+  rejections             RejectedRequest[]
+  screenShares           ScreenShare[]
+  sessionFiles           SessionFile[]
+  sessionParticipants    SessionParticipant[]
+  sessionStates          SessionState[]
+  sessionSummary         SessionSummary?
+  sessionTranscript      SessionTranscript?
+  course                 Course?              @relation(fields: [courseId], references: [id])
+  rookie                 User                 @relation("RookieSessions", fields: [rookieId], references: [id])
+  tuto                   User?                @relation("TutoSessions", fields: [tutoId], references: [id])
+
+  @@map("sessions")
+}
+
+model SessionParticipant {
+  id        String    @id @default(cuid())
+  sessionId String
+  userId    String
+  joinedAt  DateTime  @default(now())
+  leftAt    DateTime?
+  isActive  Boolean   @default(true)
+  session   Session   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, userId])
+  @@map("session_participants")
+}
+
+model SessionState {
+  id        String   @id @default(cuid())
+  sessionId String
+  type      String
+  data      Json
+  version   Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, type])
+  @@map("session_states")
+}
+
+model SessionFile {
+  id         String   @id @default(cuid())
+  sessionId  String
+  fileName   String
+  fileUrl    String
+  fileSize   Int
+  fileType   String
+  uploadedBy String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  session    Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("session_files")
+}
+
+model RejectedRequest {
+  id        String   @id @default(cuid())
+  sessionId String
+  tutoId    String
+  createdAt DateTime @default(now())
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  tuto      User     @relation(fields: [tutoId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, tutoId])
+  @@map("rejected_requests")
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  content    String
+  type       String   @default("text")
+  read       Boolean  @default(false)
+  timestamp  DateTime @default(now())
+  senderId   String
+  receiverId String?
+  sessionId  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  receiver   User?    @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  session    Session? @relation(fields: [sessionId], references: [id])
+
+  @@map("messages")
+}
+
+model UserStats {
+  id                  String   @id @default(cuid())
+  totalPoints         Int      @default(0)
+  currentLevel        Int      @default(1)
+  experiencePoints    Int      @default(0)
+  totalSessions       Int      @default(0)
+  completedSessions   Int      @default(0)
+  totalTutoringTime   Int      @default(0)
+  averageRating       Float    @default(0)
+  totalMessages       Int      @default(0)
+  filesShared         Int      @default(0)
+  whiteboardSessions  Int      @default(0)
+  codeSessions        Int      @default(0)
+  currentStreak       Int      @default(0)
+  longestStreak       Int      @default(0)
+  lastActivityDate    DateTime @default(now())
+  userId              String   @unique
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  activeSessions      Int      @default(0)
+  rookieRating        Float    @default(5.0)
+  totalEarnings       Float    @default(0)
+  totalRookieSessions Int      @default(0)
+  totalSpent          Float    @default(0)
+  totalTutoSessions   Int      @default(0)
+  tpointsBalance      Int      @default(100)
+  tutoRating          Float    @default(5.0)
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_stats")
+}
+
+model Badge {
+  id               String               @id @default(cuid())
+  name             String               @unique
+  description      String
+  icon             String
+  category         BadgeCategory
+  rarity           BadgeRarity
+  points           Int                  @default(0)
+  requirementType  BadgeRequirementType
+  requirementValue Int
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  userBadges       UserBadge[]
+
+  @@map("badges")
+}
+
+model UserBadge {
+  id        String   @id @default(cuid())
+  earnedAt  DateTime @default(now())
+  userId    String
+  badgeId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+  @@map("user_badges")
+}
+
+model Achievement {
+  id          String          @id @default(cuid())
+  type        AchievementType
+  description String
+  points      Int
+  metadata    Json?
+  userId      String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("achievements")
+}
+
+model AIConsent {
+  id          String    @id @default(cuid())
+  userId      String
+  feature     AIFeature
+  consented   Boolean   @default(false)
+  consentedAt DateTime?
+  revokedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, feature])
+  @@map("ai_consents")
+}
+
+model AIPreference {
+  id        String    @id @default(cuid())
+  userId    String
+  feature   AIFeature
+  enabled   Boolean   @default(false)
+  settings  Json?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, feature])
+  @@map("ai_preferences")
+}
+
+model AIGeneratedContent {
+  id          String        @id @default(cuid())
+  sessionId   String?
+  userId      String
+  contentType AIContentType
+  content     String
+  metadata    Json?
+  feedback    Json?
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  session     Session?      @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("ai_generated_content")
+}
+
+model SessionSummary {
+  id          String   @id @default(cuid())
+  sessionId   String   @unique
+  summary     String
+  actionItems Json
+  keyConcepts Json
+  aiGenerated Boolean  @default(true)
+  feedback    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  session     Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("session_summaries")
+}
+
+model SessionTranscript {
+  id          String   @id @default(cuid())
+  sessionId   String   @unique
+  transcript  String
+  chunks      Json
+  aiGenerated Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  session     Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("session_transcripts")
+}
+
+model ScreenShare {
+  id         String              @id @default(cuid())
+  sessionId  String
+  sharerId   String
+  sharerName String
+  sharerRole String
+  title      String
+  isActive   Boolean             @default(true)
+  startedAt  DateTime            @default(now())
+  endedAt    DateTime?
+  viewers    ScreenShareViewer[]
+  session    Session             @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sharer     User                @relation("ScreenShares", fields: [sharerId], references: [id], onDelete: Cascade)
+
+  @@map("screen_shares")
+}
+
+model ScreenShareViewer {
+  id            String      @id @default(cuid())
+  screenShareId String
+  viewerId      String
+  viewerName    String
+  viewerRole    String
+  joinedAt      DateTime    @default(now())
+  leftAt        DateTime?
+  isActive      Boolean     @default(true)
+  screenShare   ScreenShare @relation(fields: [screenShareId], references: [id], onDelete: Cascade)
+  viewer        User        @relation("ScreenShareViewers", fields: [viewerId], references: [id], onDelete: Cascade)
+
+  @@unique([screenShareId, viewerId])
+  @@map("screen_share_viewers")
+}
+
+model ForumPost {
+  id           String         @id @default(cuid())
+  authorId     String
+  title        String?
+  body         String
+  postType     ForumPostType
+  parentPostId String?
+  tags         String[]
+  urgency      ForumUrgency   @default(GENERAL)
+  universityId String
+  isAccepted   Boolean        @default(false)
+  isDeleted    Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  attachments  String[]
+  comments     ForumComment[]
+  author       User           @relation("ForumPosts", fields: [authorId], references: [id], onDelete: Cascade)
+  parentPost   ForumPost?     @relation("ForumReplies", fields: [parentPostId], references: [id])
+  replies      ForumPost[]    @relation("ForumReplies")
+  university   University     @relation("ForumPosts", fields: [universityId], references: [id], onDelete: Cascade)
+  reports      ForumReport[]
+  votes        ForumVote[]    @relation("ForumPostVotes")
+  saved_posts  saved_posts[]
+
+  @@index([universityId, isDeleted, createdAt])
+  @@index([authorId, isDeleted])
+  @@index([tags])
+  @@index([postType, isDeleted])
+  @@index([urgency, isDeleted])
+  @@map("forum_posts")
+}
+
+model ForumComment {
+  id              String         @id @default(cuid())
+  postId          String
+  authorId        String
+  body            String
+  parentCommentId String?
+  isDeleted       Boolean        @default(false)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  author          User           @relation("ForumComments", fields: [authorId], references: [id], onDelete: Cascade)
+  parentComment   ForumComment?  @relation("CommentReplies", fields: [parentCommentId], references: [id])
+  replies         ForumComment[] @relation("CommentReplies")
+  post            ForumPost      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  votes           ForumVote[]    @relation("ForumCommentVotes")
+
+  @@map("forum_comments")
+}
+
+model ForumVote {
+  id        String        @id @default(cuid())
+  postId    String?
+  commentId String?
+  userId    String
+  voteType  ForumVoteType
+  createdAt DateTime      @default(now())
+  comment   ForumComment? @relation("ForumCommentVotes", fields: [commentId], references: [id], onDelete: Cascade)
+  post      ForumPost?    @relation("ForumPostVotes", fields: [postId], references: [id], onDelete: Cascade)
+  user      User          @relation("ForumVotes", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, commentId, userId])
+  @@index([postId, voteType])
+  @@index([commentId, voteType])
+  @@index([userId])
+  @@map("forum_votes")
+}
+
+model ForumReport {
+  id          String            @id @default(cuid())
+  postId      String
+  reporterId  String
+  reason      ForumReportReason
+  description String?
+  status      ForumReportStatus @default(PENDING)
+  createdAt   DateTime          @default(now())
+  resolvedAt  DateTime?
+  resolvedBy  String?
+  post        ForumPost         @relation(fields: [postId], references: [id], onDelete: Cascade)
+  reporter    User              @relation("ForumReports", fields: [reporterId], references: [id], onDelete: Cascade)
+  resolver    User?             @relation("ForumReportResolutions", fields: [resolvedBy], references: [id])
+
+  @@map("forum_reports")
+}
+
+model TutoProfile {
+  id                     String    @id @default(cuid())
+  preferredName          String?
+  selectedAvatar         String?
+  pronouns               String?
+  yearOfStudy            String?
+  major                  String?
+  gpa                    String?
+  teachingBio            String?
+  ratePerSession         String?
+  availability           String[]
+  certifications         String?
+  coursesTaken           Json?
+  tutoringSubjects       String[]
+  tutoringTopics         Json?
+  resume                 String?
+  userId                 String    @unique
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  academicAwards         String[]
+  academicStanding       String?
+  expectedGraduationDate DateTime?
+  researchExperience     String?
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("tuto_profiles")
+}
+
+model RookieProfile {
+  id                     String    @id @default(cuid())
+  preferredName          String?
+  selectedAvatar         String?
+  pronouns               String?
+  yearOfStudy            String?
+  major                  String?
+  subjectsSeekingHelp    String[]
+  learningStyle          String[]
+  learningNeeds          String[]
+  tutoringExperience     String?
+  userId                 String    @unique
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+  academicAwards         String[]
+  academicStanding       String?
+  expectedGraduationDate DateTime?
+  researchExperience     String?
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("rookie_profiles")
+}
+
+model saved_posts {
+  id          String    @id
+  userId      String
+  postId      String
+  createdAt   DateTime  @default(now())
+  forum_posts ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  users       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@index([postId])
+  @@index([userId])
+}
+
+enum UserRole {
+  TUTO
+  ROOKIE
+  BOTH
+}
+
+enum CourseLevel {
+  UNDERGRADUATE
+  GRADUATE
+  PHD
+}
+
+enum ExpertiseLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum ProficiencyLevel {
+  CURRENTLY_TAKING
+  TOOK_COURSE
+  GOT_A
+  TUTORED_BEFORE
+  TAED
+}
+
+enum Semester {
+  FALL
+  SPRING
+  SUMMER
+  WINTER
+}
+
+enum SessionStatus {
+  REQUESTED
+  ACCEPTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  REJECTED
+  PENDING_CONFIRMATION
+  EXPIRED_PENDING_REASSIGNMENT
+}
+
+enum BadgeCategory {
+  SESSIONS
+  MESSAGES
+  RATING
+  STREAK
+  SPECIAL
+  MILESTONE
+}
+
+enum BadgeRarity {
+  COMMON
+  UNCOMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+enum BadgeRequirementType {
+  SESSIONS_COMPLETED
+  MESSAGES_SENT
+  RATING_ACHIEVED
+  STREAK_DAYS
+  POINTS_EARNED
+  FILES_SHARED
+  WHITEBOARD_SESSIONS
+  CODE_SESSIONS
+}
+
+enum AchievementType {
+  FIRST_SESSION
+  FIRST_MESSAGE
+  HIGH_RATING
+  STREAK_MILESTONE
+  POINTS_MILESTONE
+  LEVEL_UP
+  BADGE_EARNED
+  PERFECT_SESSION
+  HELPFUL_TUTOR
+  ACTIVE_LEARNER
+}
+
+enum AIFeature {
+  SESSION_SUMMARY
+  TRANSCRIPTION
+  SMART_NOTES
+  AI_ASSISTANT
+  SENTIMENT_ANALYSIS
+  CONTENT_RECOMMENDATIONS
+  PRACTICE_GENERATION
+  MATCHING
+}
+
+enum AIContentType {
+  SESSION_SUMMARY
+  ACTION_ITEMS
+  SMART_NOTES
+  TRANSCRIPT
+  AI_RESPONSE
+  RECOMMENDATION
+  PRACTICE_QUESTION
+  SENTIMENT_FEEDBACK
+}
+
+enum SummarySource {
+  ai
+  human
+  imported
+  scripted
+}
+
+enum SummaryStatus {
+  PENDING
+  COMPLETE
+  FAILED
+}
+
+enum FeedbackRating {
+  UP
+  DOWN
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum SkillCategory {
+  TECHNICAL
+  SOFT_SKILLS
+  LANGUAGES
+  TOOLS
+}
+
+enum ForumPostType {
+  QUESTION
+  ANSWER
+  DISCUSSION
+  ANNOUNCEMENT
+}
+
+enum ForumUrgency {
+  GENERAL
+  HIGH
+  URGENT
+}
+
+enum ForumTargetType {
+  POST
+  COMMENT
+}
+
+enum ForumVoteType {
+  UP
+  DOWN
+}
+
+enum ForumReportReason {
+  INAPPROPRIATE_CONTENT
+  SPAM
+  HARASSMENT
+  COPYRIGHT_INFRINGEMENT
+  OTHER
+}
+
+enum ForumReportStatus {
+  PENDING
+  RESOLVED
+  IGNORED
+}

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "users" ADD COLUMN     "averageRating" DOUBLE PRECISION NOT NULL DEFAULT 5.0,
+ADD COLUMN     "totalRatings" INTEGER NOT NULL DEFAULT 0;
