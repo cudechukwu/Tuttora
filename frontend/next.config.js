@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Force redeploy to pick up environment variables - URGENT FIX
+  // Force redeploy to pick up environment variables - URGENT FIX - CACHE BUST
   trailingSlash: true,
   images: {
     unoptimized: true,
