@@ -423,7 +423,7 @@ export default function ForumPage() {
         ...(filters.filter !== 'all' && { filter: filters.filter })
       });
 
-      const response = await fetch(`/api/forum/posts?${params}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/posts?${params}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -469,7 +469,7 @@ export default function ForumPage() {
 
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
-      const response = await fetch(`/api/forum/posts/${postId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/posts/${postId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -589,7 +589,7 @@ export default function ForumPage() {
       // Make API call
       if (currentUserVote === voteType) {
         // Remove vote
-        await fetch('/api/forum/votes', {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/votes`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -599,7 +599,7 @@ export default function ForumPage() {
         });
       } else {
         // Create/update vote
-        await fetch('/api/forum/votes', {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}/api/forum/votes`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
