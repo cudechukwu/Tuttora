@@ -152,86 +152,45 @@ async function main() {
     }
   }
 
-  // Create Wesleyan University courses (these will show up in departments)
+  // Import real Wesleyan University courses from your actual data
   if (wesleyan?.id) {
-    const wesleyanCourses = [
-      {
-        code: 'COMP112',
-        number: '112',
-        title: 'Introduction to Programming',
-        department: 'Computer Science',
-        credits: 1,
-        professor: 'Dr. Ethan Kleinberg',
-        term: 'Fall 2025',
-        universityId: wesleyan.id
-      },
-      {
-        code: 'COMP211',
-        number: '211',
-        title: 'Data Structures',
-        department: 'Computer Science',
-        credits: 1,
-        professor: 'Dr. Sarah Johnson',
-        term: 'Fall 2025',
-        universityId: wesleyan.id
-      },
-      {
-        code: 'MATH121',
-        number: '121',
-        title: 'Calculus I',
-        department: 'Mathematics',
-        credits: 1,
-        professor: 'Dr. Michael Chen',
-        term: 'Fall 2025',
-        universityId: wesleyan.id
-      },
-      {
-        code: 'MATH122',
-        number: '122',
-        title: 'Calculus II',
-        department: 'Mathematics',
-        credits: 1,
-        professor: 'Dr. Emily Davis',
-        term: 'Fall 2025',
-        universityId: wesleyan.id
-      },
-      {
-        code: 'PHYS111',
-        number: '111',
-        title: 'General Physics I',
-        department: 'Physics',
-        credits: 1,
-        professor: 'Dr. Robert Wilson',
-        term: 'Fall 2025',
-        universityId: wesleyan.id
-      },
-      {
-        code: 'CHEM141',
-        number: '141',
-        title: 'General Chemistry I',
-        department: 'Chemistry',
-        credits: 1,
-        professor: 'Dr. Lisa Thompson',
-        term: 'Fall 2025',
-        universityId: wesleyan.id
-      }
-    ];
-
-    for (const course of wesleyanCourses) {
-      const existing = await prisma.course.findFirst({
-        where: { 
-          code: course.code,
-          universityId: course.universityId
-        }
-      });
+    console.log('🌱 Importing real Wesleyan courses...');
+    
+    try {
+      // Import and run the real Wesleyan courses script
+      await import('../scripts/importWesleyanCourses');
+      console.log('✅ Real Wesleyan courses imported successfully!');
+    } catch (error) {
+      console.error('❌ Error importing Wesleyan courses:', error);
+      console.log('⚠️  Falling back to basic course creation...');
       
-      if (!existing) {
-        await prisma.course.create({ 
-          data: course
+      // Fallback to basic courses if import fails
+      const basicCourses = [
+        { code: 'COMP112', title: 'Introduction to Programming', department: 'Computer Science', credits: 1, professor: 'Dr. Ethan Kleinberg' },
+        { code: 'MATH121', title: 'Calculus I', department: 'Mathematics', credits: 1, professor: 'Dr. Michael Chen' },
+        { code: 'PHYS111', title: 'General Physics I', department: 'Physics', credits: 1, professor: 'Dr. Robert Wilson' },
+        { code: 'CHEM141', title: 'General Chemistry I', department: 'Chemistry', credits: 1, professor: 'Dr. Lisa Thompson' }
+      ];
+      
+      for (const course of basicCourses) {
+        const existing = await prisma.course.findFirst({
+          where: { 
+            code: course.code,
+            universityId: wesleyan.id
+          }
         });
-        console.log(`✅ Created Wesleyan course: ${course.code}`);
-      } else {
-        console.log(`⏭️  Wesleyan course already exists: ${course.code}`);
+        
+        if (!existing) {
+          await prisma.course.create({ 
+            data: {
+              ...course,
+              number: course.code.replace(/\D/g, ''),
+              term: 'Fall 2025',
+              universityId: wesleyan.id
+            }
+          });
+          console.log(`✅ Created basic Wesleyan course: ${course.code}`);
+        }
       }
     }
   } else {
