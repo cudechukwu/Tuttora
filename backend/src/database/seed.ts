@@ -162,36 +162,7 @@ async function main() {
       console.log('✅ Real Wesleyan courses imported successfully!');
     } catch (error) {
       console.error('❌ Error importing Wesleyan courses:', error);
-      console.log('⚠️  Falling back to basic course creation...');
-      
-      // Fallback to basic courses if import fails
-      const basicCourses = [
-        { code: 'COMP112', title: 'Introduction to Programming', department: 'Computer Science', credits: 1, professor: 'Dr. Ethan Kleinberg' },
-        { code: 'MATH121', title: 'Calculus I', department: 'Mathematics', credits: 1, professor: 'Dr. Michael Chen' },
-        { code: 'PHYS111', title: 'General Physics I', department: 'Physics', credits: 1, professor: 'Dr. Robert Wilson' },
-        { code: 'CHEM141', title: 'General Chemistry I', department: 'Chemistry', credits: 1, professor: 'Dr. Lisa Thompson' }
-      ];
-      
-      for (const course of basicCourses) {
-        const existing = await prisma.course.findFirst({
-          where: { 
-            code: course.code,
-            universityId: wesleyan.id
-          }
-        });
-        
-        if (!existing) {
-          await prisma.course.create({ 
-            data: {
-              ...course,
-              number: course.code.replace(/\D/g, ''),
-              term: 'Fall 2025',
-              universityId: wesleyan.id
-            }
-          });
-          console.log(`✅ Created basic Wesleyan course: ${course.code}`);
-        }
-      }
+      console.log('⚠️  Wesleyan course import failed - no fallback courses created');
     }
   } else {
     console.log('⚠️  Wesleyan University not found, skipping Wesleyan courses');

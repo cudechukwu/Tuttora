@@ -71,6 +71,9 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 
+// Trust proxy for Railway deployment
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(helmet());
 app.use(cors({
