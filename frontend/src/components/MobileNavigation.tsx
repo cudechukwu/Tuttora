@@ -21,37 +21,37 @@ export default function MobileNavigation() {
       {/* Hamburger Button */}
       <button
         onClick={toggleMenu}
-        className="text-white hover:text-blue-300 transition-colors p-2 -mr-2"
+        className="text-white hover:text-blue-400 transition-colors p-2 -mr-2"
         aria-label="Toggle menu"
       >
         {isMenuOpen ? (
-          <XMarkIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+          <XMarkIcon className="w-6 h-6" />
         ) : (
-          <Bars3Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+          <Bars3Icon className="w-6 h-6" />
         )}
       </button>
 
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 bg-gray-900/95 backdrop-blur-sm">
           <div className="flex flex-col h-full">
             {/* Header with close button */}
-            <div className="flex justify-between items-center p-4 border-b border-white/20">
-              <Link href="/" className="flex items-center space-x-2" onClick={closeMenu}>
+            <div className="flex justify-between items-center p-6 border-b border-gray-700">
+              <Link href="/" className="flex items-center space-x-3" onClick={closeMenu}>
                 <Image
                   src="/images/logo/TP_Logo.png"
                   alt="Tuttora"
-                  width={32}
-                  height={32}
+                  width={36}
+                  height={36}
                   className="rounded-lg"
                 />
-                <span className="text-xl font-bold bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+                <span className="text-2xl font-bold text-white" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
                   Tuttora
                 </span>
               </Link>
               <button
                 onClick={closeMenu}
-                className="text-white hover:text-blue-300 transition-colors p-2"
+                className="text-gray-400 hover:text-white transition-colors p-2"
                 aria-label="Close menu"
               >
                 <XMarkIcon className="w-6 h-6" />
@@ -59,48 +59,40 @@ export default function MobileNavigation() {
             </div>
 
             {/* Navigation Links */}
-            <nav className="flex-1 px-4 py-8">
-              <div className="space-y-6">
+            <nav className="flex-1 px-6 py-8">
+              <div className="space-y-8">
                 <Link
-                  href="/features"
-                  className="block text-white hover:text-blue-300 transition-colors text-lg font-medium py-3 border-b border-white/10"
+                  href="/auth/register"
+                  className="block text-white hover:text-blue-400 transition-colors text-xl font-medium py-4 border-b border-gray-700"
                   onClick={closeMenu}
+                  style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}
                 >
-                  Features
+                  Sign Up
                 </Link>
                 <Link
-                  href="/pricing"
-                  className="block text-white hover:text-blue-300 transition-colors text-lg font-medium py-3 border-b border-white/10"
+                  href="/auth/login"
+                  className="block text-white hover:text-blue-400 transition-colors text-xl font-medium py-4 border-b border-gray-700"
                   onClick={closeMenu}
+                  style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}
                 >
-                  Pricing
+                  Login
                 </Link>
                 <Link
-                  href="/premium"
-                  className="block text-white hover:text-blue-300 transition-colors text-lg font-medium py-3 border-b border-white/10"
+                  href="#how-it-works"
+                  className="block text-white hover:text-blue-400 transition-colors text-xl font-medium py-4 border-b border-gray-700"
                   onClick={closeMenu}
+                  style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}
                 >
-                  Premium
+                  How It Works
                 </Link>
               </div>
             </nav>
 
-            {/* Auth Buttons */}
-            <div className="p-4 border-t border-white/20 space-y-4">
-              <Link
-                href="/auth/login"
-                className="block text-white hover:text-blue-300 transition-colors text-lg font-medium py-3 text-center"
-                onClick={closeMenu}
-              >
-                Log in
-              </Link>
-              <Link
-                href="/auth/register"
-                className="block bg-white/20 text-white px-6 py-3 rounded-lg hover:bg-white/30 transition-colors text-lg font-medium text-center border border-white/30"
-                onClick={closeMenu}
-              >
-                Start now
-              </Link>
+            {/* Footer */}
+            <div className="p-6 border-t border-gray-700">
+              <p className="text-gray-400 text-sm text-center" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
+                A better way to learn.
+              </p>
             </div>
           </div>
         </div>

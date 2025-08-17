@@ -972,9 +972,10 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="relative bg-gray-600 text-white py-8 sm:py-12 border-t border-gray-500 z-30">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            <div className="text-center sm:text-left">
-              <div className="flex items-center justify-center sm:justify-start space-x-2 mb-4">
+          <div className="flex flex-col items-center space-y-6">
+            {/* Logo and Tagline */}
+            <div className="text-center">
+              <div className="flex items-center justify-center space-x-2 mb-4">
                 <Image
                   src="/images/logo/TP_Logo.png"
                   alt="Tuttora"
@@ -984,7 +985,7 @@ export default function HomePage() {
                 />
                 <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'Ubuntu, sans-serif' }}>Tuttora</h3>
               </div>
-              <p className="text-gray-300 mb-4 text-sm sm:text-base" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
+              <p className="text-gray-300 mb-2 text-sm sm:text-base" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
                 A better way to learn.
               </p>
               <p className="text-blue-400 text-sm font-medium" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
@@ -992,42 +993,23 @@ export default function HomePage() {
               </p>
             </div>
             
-            <div className="text-center sm:text-left">
-              <h4 className="font-semibold mb-4 text-white" style={{ fontFamily: 'Ubuntu, sans-serif' }}>Get Started</h4>
-              <ul className="space-y-2 text-gray-300 text-sm sm:text-base" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
-                <li><Link href="/auth/register" className="hover:text-blue-400 transition-colors">Sign Up</Link></li>
-                <li><Link href="/auth/login" className="hover:text-blue-400 transition-colors">Login</Link></li>
-                <li><Link href="#how-it-works" className="hover:text-blue-400 transition-colors">How It Works</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Student Guide</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Tuto Guide</Link></li>
-              </ul>
+            {/* Simple Navigation */}
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
+              <Link href="/auth/register" className="text-gray-300 hover:text-blue-400 transition-colors" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
+                Sign Up
+              </Link>
+              <Link href="/auth/login" className="text-gray-300 hover:text-blue-400 transition-colors" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
+                Login
+              </Link>
+              <Link href="#how-it-works" className="text-gray-300 hover:text-blue-400 transition-colors" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
+                How It Works
+              </Link>
             </div>
             
-            <div className="text-center sm:text-left">
-              <h4 className="font-semibold mb-4 text-white" style={{ fontFamily: 'Ubuntu, sans-serif' }}>Our Platform</h4>
-              <ul className="space-y-2 text-gray-300 text-sm sm:text-base" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Community Mode</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">On-Demand Mode</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Session Management</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Academic Integrity</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">University Partners</Link></li>
-              </ul>
+            {/* Copyright */}
+            <div className="border-t border-gray-500 pt-6 text-center text-gray-200 text-sm" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
+              <p>&copy; 2024 Tuttora. Committed to academic excellence and student success.</p>
             </div>
-            
-            <div className="text-center sm:text-left">
-              <h4 className="font-semibold mb-4 text-white" style={{ fontFamily: 'Ubuntu, sans-serif' }}>Support & Legal</h4>
-              <ul className="space-y-2 text-gray-300 text-sm sm:text-base" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Help Center</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Contact Us</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Terms of Service</Link></li>
-                <li><Link href="#" className="hover:text-blue-400 transition-colors">Academic Honor Code</Link></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-500 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-200 text-sm sm:text-base" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
-            <p>&copy; 2024 Tuttora. Committed to academic excellence and student success.</p>
           </div>
         </div>
       </footer>
