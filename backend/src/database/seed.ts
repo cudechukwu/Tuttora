@@ -64,109 +64,19 @@ async function main() {
     }
   }
 
-  // Create courses
-  const courses = [
-    {
-      code: 'CS61A',
-      number: '61A',
-      title: 'Structure and Interpretation of Computer Programs',
-      department: 'Computer Science',
-      credits: 4,
-      professor: 'John DeNero',
-      term: 'Fall 2025'
-    },
-    {
-      code: 'CS106B',
-      number: '106B',
-      title: 'Programming Abstractions',
-      department: 'Computer Science',
-      credits: 4,
-      professor: 'Julie Zelenski',
-      term: 'Fall 2025'
-    },
-    {
-      code: '6.006',
-      number: '6.006',
-      title: 'Introduction to Algorithms',
-      department: 'Computer Science',
-      credits: 4,
-      professor: 'Erik Demaine',
-      term: 'Fall 2025'
-    },
-    {
-      code: 'MATH101',
-      number: '101',
-      title: 'Calculus I',
-      department: 'Mathematics',
-      credits: 4,
-      professor: 'James Smith',
-      term: 'Fall 2025'
-    },
-    {
-      code: 'PHYS101',
-      number: '101',
-      title: 'Physics I',
-      department: 'Physics',
-      credits: 4,
-      professor: 'Jane Doe',
-      term: 'Fall 2025'
-    },
-    {
-      code: 'CHEM101',
-      number: '101',
-      title: 'General Chemistry',
-      department: 'Chemistry',
-      credits: 4,
-      professor: 'Albert Brown',
-      term: 'Fall 2025'
-    }
-  ];
+  // Courses are now managed separately to avoid duplication
 
   const berkeley = await prisma.university.findUnique({ where: { domain: 'berkeley.edu' } });
   const stanford = await prisma.university.findUnique({ where: { domain: 'stanford.edu' } });
   const mit = await prisma.university.findUnique({ where: { domain: 'mit.edu' } });
   const wesleyan = await prisma.university.findUnique({ where: { domain: 'wesleyan.edu' } });
 
-  // Create courses for other universities
-  for (const course of courses) {
-    const universityId = berkeley?.id || stanford?.id || mit?.id;
-    if (!universityId) continue;
-    
-    const existing = await prisma.course.findFirst({
-      where: { 
-        code: course.code,
-        universityId
-      }
-    });
-    
-    if (!existing) {
-      await prisma.course.create({ 
-        data: {
-          ...course,
-          universityId
-        }
-      });
-      console.log(`✅ Created course: ${course.code}`);
-    } else {
-      console.log(`⏭️  Course already exists: ${course.code}`);
-    }
-  }
+  // Courses are now managed separately to avoid duplication
+  console.log('ℹ️  Courses are managed separately via replace-all-courses.ts script');
 
-  // Import real Wesleyan University courses from your actual data
-  if (wesleyan?.id) {
-    console.log('🌱 Importing real Wesleyan courses...');
-    
-    try {
-      // Import and run the real Wesleyan courses script
-      await import('../scripts/importWesleyanCourses');
-      console.log('✅ Real Wesleyan courses imported successfully!');
-    } catch (error) {
-      console.error('❌ Error importing Wesleyan courses:', error);
-      console.log('⚠️  Wesleyan course import failed - no fallback courses created');
-    }
-  } else {
-    console.log('⚠️  Wesleyan University not found, skipping Wesleyan courses');
-  }
+  // Wesleyan courses are now handled by the separate replacement script
+  // to avoid duplication and ensure data integrity
+  console.log('ℹ️  Wesleyan courses are managed separately via replace-all-courses.ts script');
 
   // Create comprehensive sample users with profiles and dashboard stats
   const sampleUsers = [
