@@ -495,7 +495,7 @@ export default function HomePage() {
             {/* Right: Interactive Accordion */}
             <div className="w-full lg:w-2/5 order-1 lg:order-2 mb-8 lg:mb-0">
               <h2 
-                className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 leading-tight text-center lg:text-left"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-5 sm:mb-6 leading-tight text-center lg:text-left"
                 style={{ 
                   fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
                   color: '#1f2937',
@@ -539,26 +539,26 @@ export default function HomePage() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-12 sm:py-16 md:py-20 relative z-10">
+      <section id="how-it-works" className="py-8 sm:py-12 md:py-16 lg:py-20 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 px-4 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 px-4 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
               How the Hybrid Model Works
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto px-4 leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+            <p className="text-sm sm:text-base md:text-lg text-gray-200 max-w-3xl mx-auto px-4 leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
               Choose your path: build community through free peer support, or access premium on-demand help when you need it most.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
             {/* Community Mode */}
-            <div className="p-8 rounded-2xl border-2 border-green-400/60">
+            <div className="p-6 sm:p-8 rounded-2xl border-2 border-green-400/60">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mr-4">
                   <HeartIcon className="w-6 h-6 text-green-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+                  <h3 className="text-lg sm:text-xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                     Free Mode
                   </h3>
                   <p 
@@ -574,7 +574,7 @@ export default function HomePage() {
                 </div>
               </div>
               
-              <ul className="space-y-4 mb-6">
+              <ul className="space-y-2.5 mb-6">
                 <li className="flex items-start">
                   <CheckCircleIcon className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
@@ -616,13 +616,13 @@ export default function HomePage() {
             </div>
 
             {/* On-Demand Mode */}
-            <div className="p-8 rounded-2xl border-2 border-blue-400/60">
+            <div className="p-6 sm:p-8 rounded-2xl border-2 border-blue-400/60">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mr-4">
                   <BoltIcon className="w-6 h-6 text-blue-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+                  <h3 className="text-lg sm:text-xl font-bold text-white leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                     Premium Mode
                   </h3>
                   <p 
@@ -638,7 +638,7 @@ export default function HomePage() {
                 </div>
               </div>
               
-              <ul className="space-y-4 mb-6">
+              <ul className="space-y-2.5 mb-6">
                 <li className="flex items-start">
                   <CheckCircleIcon className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
