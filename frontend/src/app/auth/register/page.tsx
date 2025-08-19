@@ -224,20 +224,20 @@ export default function RegisterPage() {
         <div className="hidden lg:flex lg:w-2/5 flex-col justify-center items-center p-8">
           <div className="max-w-sm text-center">
             {/* Logo */}
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-4">
               <div className="relative">
-                <div className="bg-gradient-to-br from-primary-50 via-blue-50 to-secondary-50 rounded-2xl p-4 shadow-lg">
+                <div className="bg-gradient-to-br from-primary-50 via-blue-50 to-secondary-50 rounded-2xl p-3 shadow-lg">
                   <Image
                     src="/images/logo/TP_Logo.png"
                     alt="Tuttora Logo"
-                    width={96}
-                    height={96}
+                    width={72}
+                    height={72}
                   />
                 </div>
               </div>
             </div>
             
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">
+            <h1 className="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">
             Join Tuttora
             </h1>
             <p className="text-gray-600 text-base mb-6">
@@ -294,19 +294,19 @@ export default function RegisterPage() {
           <div className="w-full max-w-lg">
             {/* Mobile Header */}
             <div className="lg:hidden text-center mb-6">
-              <div className="flex justify-center mb-4">
+              <div className="flex justify-center mb-3">
                 <div className="relative">
-                  <div className="bg-gradient-to-br from-primary-50 via-blue-50 to-secondary-50 rounded-2xl p-3 shadow-lg">
+                  <div className="bg-gradient-to-br from-primary-50 via-blue-50 to-secondary-50 rounded-2xl p-2 shadow-lg">
                     <Image
                       src="/images/logo/TP_Logo.png"
                       alt="Tuttora Logo"
-                      width={88}
-                      height={88}
+                      width={64}
+                      height={64}
                     />
                   </div>
                 </div>
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-lg font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-2">
                 Join Tuttora
               </h1>
             </div>
@@ -314,8 +314,8 @@ export default function RegisterPage() {
             {/* Form Card */}
             <div className="bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-6">
             {/* Role Selection */}
-              <div className="mb-6">
-                <h2 className="text-lg font-bold text-gray-900 mb-8 text-center">I want to join as:</h2>
+              <div className="mb-5">
+                <h2 className="text-base font-semibold text-gray-700 mb-4 text-center">I want to join as:</h2>
                 
               <div className="grid grid-cols-2 gap-3">
                   {/* Rookie Card */}
@@ -324,20 +324,20 @@ export default function RegisterPage() {
                       formData.role === 'ROOKIE' 
                         ? 'ring-2 ring-green-500/50 bg-gradient-to-br from-green-50 to-emerald-50 border-green-300' 
                         : 'bg-white/80 border-gray-200 hover:border-green-300'
-                    } border rounded-xl p-4`}
+                    } border rounded-xl p-3`}
                     onClick={() => setFormData(prev => ({ ...prev, role: 'ROOKIE' }))}
                   >
                     <div className="flex items-center mb-2">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center mr-2 ${
+                      <div className={`w-6 h-6 rounded-lg flex items-center justify-center mr-2 ${
                         formData.role === 'ROOKIE' ? 'bg-green-100' : 'bg-gray-100'
                       }`}>
-                        <HeartIcon className={`w-4 h-4 ${formData.role === 'ROOKIE' ? 'text-green-600' : 'text-gray-600'}`} />
+                        <HeartIcon className={`w-3 h-3 ${formData.role === 'ROOKIE' ? 'text-green-600' : 'text-gray-600'}`} />
                       </div>
                       <div>
-                        <h3 className={`text-sm font-bold ${formData.role === 'ROOKIE' ? 'text-green-900' : 'text-gray-900'}`}>
+                        <h3 className={`text-xs font-semibold ${formData.role === 'ROOKIE' ? 'text-green-800' : 'text-gray-700'}`}>
                           Rookie
                         </h3>
-                        <p className={`text-xs ${formData.role === 'ROOKIE' ? 'text-green-700' : 'text-gray-600'}`}>
+                        <p className={`text-[10px] ${formData.role === 'ROOKIE' ? 'text-green-600' : 'text-gray-500'}`}>
                           Get help
                         </p>
                       </div>
@@ -345,24 +345,24 @@ export default function RegisterPage() {
                     
                     {/* Role Perks */}
                     <div className="space-y-1">
-                      <div className="flex items-center text-xs text-gray-700">
-                        <CheckCircleIcon className="w-3 h-3 text-green-500 mr-1 flex-shrink-0" />
+                      <div className="flex items-center text-[10px] text-gray-600">
+                        <CheckCircleIcon className="w-2.5 h-2.5 text-green-500 mr-1 flex-shrink-0" />
                         Free peer support
                       </div>
-                      <div className="flex items-center text-xs text-gray-700">
-                        <CheckCircleIcon className="w-3 h-3 text-green-500 mr-1 flex-shrink-0" />
+                      <div className="flex items-center text-[10px] text-gray-600">
+                        <CheckCircleIcon className="w-2.5 h-2.5 text-green-500 mr-1 flex-shrink-0" />
                         Real-time matching
                       </div>
-                      <div className="flex items-center text-xs text-gray-700">
-                        <CheckCircleIcon className="w-3 h-3 text-green-500 mr-1 flex-shrink-0" />
+                      <div className="flex items-center text-[10px] text-gray-600">
+                        <CheckCircleIcon className="w-2.5 h-2.5 text-green-500 mr-1 flex-shrink-0" />
                         Earn Tpoints
                       </div>
                     </div>
                     
                     {formData.role === 'ROOKIE' && (
                       <div className="absolute top-2 right-2">
-                        <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                          <CheckCircleIcon className="w-3 h-3 text-white" />
+                        <div className="w-3 h-3 bg-green-500 rounded-full flex items-center justify-center">
+                          <CheckCircleIcon className="w-2 h-2 text-white" />
                         </div>
                       </div>
                     )}
@@ -374,20 +374,20 @@ export default function RegisterPage() {
                       formData.role === 'TUTO' 
                         ? 'ring-2 ring-pink-500/50 bg-gradient-to-br from-pink-50 to-rose-50 border-pink-300' 
                         : 'bg-white/80 border-gray-200 hover:border-pink-300'
-                    } border rounded-xl p-4`}
+                    } border rounded-xl p-3`}
                     onClick={() => setFormData(prev => ({ ...prev, role: 'TUTO' }))}
                   >
                     <div className="flex items-center mb-2">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center mr-2 ${
+                      <div className={`w-6 h-6 rounded-lg flex items-center justify-center mr-2 ${
                         formData.role === 'TUTO' ? 'bg-pink-100' : 'bg-gray-100'
                       }`}>
-                        <BoltIcon className={`w-4 h-4 ${formData.role === 'TUTO' ? 'text-pink-600' : 'text-gray-600'}`} />
+                        <BoltIcon className={`w-3 h-3 ${formData.role === 'TUTO' ? 'text-pink-600' : 'text-gray-600'}`} />
                       </div>
                       <div>
-                        <h3 className={`text-sm font-bold ${formData.role === 'TUTO' ? 'text-pink-900' : 'text-gray-900'}`}>
+                        <h3 className={`text-xs font-semibold ${formData.role === 'TUTO' ? 'text-pink-800' : 'text-gray-700'}`}>
                           Tutor
                         </h3>
-                        <p className={`text-xs ${formData.role === 'TUTO' ? 'text-pink-700' : 'text-gray-600'}`}>
+                        <p className={`text-[10px] ${formData.role === 'TUTO' ? 'text-pink-600' : 'text-gray-500'}`}>
                           Help others
                         </p>
                       </div>
@@ -395,24 +395,24 @@ export default function RegisterPage() {
                     
                     {/* Role Perks */}
                     <div className="space-y-1">
-                      <div className="flex items-center text-xs text-gray-700">
-                        <CheckCircleIcon className="w-3 h-3 text-pink-500 mr-1 flex-shrink-0" />
+                      <div className="flex items-center text-[10px] text-gray-600">
+                        <CheckCircleIcon className="w-2.5 h-2.5 text-pink-500 mr-1 flex-shrink-0" />
                         Share knowledge
                       </div>
-                      <div className="flex items-center text-xs text-gray-700">
-                        <CheckCircleIcon className="w-3 h-3 text-pink-500 mr-1 flex-shrink-0" />
+                      <div className="flex items-center text-[10px] text-gray-600">
+                        <CheckCircleIcon className="w-2.5 h-2.5 text-pink-500 mr-1 flex-shrink-0" />
                         Build reputation
                       </div>
-                      <div className="flex items-center text-xs text-gray-700">
-                        <CheckCircleIcon className="w-3 h-3 text-pink-500 mr-1 flex-shrink-0" />
+                      <div className="flex items-center text-[10px] text-gray-600">
+                        <CheckCircleIcon className="w-2.5 h-2.5 text-pink-500 mr-1 flex-shrink-0" />
                         Unlock premium
                       </div>
                     </div>
                     
                     {formData.role === 'TUTO' && (
                       <div className="absolute top-2 right-2">
-                        <div className="w-4 h-4 bg-pink-500 rounded-full flex items-center justify-center">
-                          <CheckCircleIcon className="w-3 h-3 text-white" />
+                        <div className="w-3 h-3 bg-pink-500 rounded-full flex items-center justify-center">
+                          <CheckCircleIcon className="w-2 h-2 text-white" />
                         </div>
                       </div>
                     )}
@@ -420,8 +420,8 @@ export default function RegisterPage() {
                 </div>
                 
                 {/* Role switching note */}
-                <div className="mt-4 p-2 bg-blue-50 border border-blue-200 rounded-lg">
-                  <p className="text-[10px] text-blue-700 text-center">
+                <div className="mt-3 p-2 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-[9px] text-blue-700 text-center">
                     Don't worry! You can easily switch between Rookie and Tutor modes anytime in your profile settings.
                   </p>
                 </div>
