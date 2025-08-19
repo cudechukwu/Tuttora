@@ -546,7 +546,7 @@ export default function HomePage() {
               How the Hybrid Model Works
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-200 max-w-3xl mx-auto px-4 leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
-              Choose your path: build community through free peer support, or access premium on-demand help when you need it most.
+              Free peer support to build community, or premium on-demand help when you need it.
             </p>
           </div>
 
@@ -578,7 +578,7 @@ export default function HomePage() {
                 <li className="flex items-start">
                   <CheckCircleIcon className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
-                    Join as Rookies (seeking help) or Tutos (offering help)
+                    Join as a Rookie or Tuto
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -590,7 +590,7 @@ export default function HomePage() {
                 <li className="flex items-start">
                   <CheckCircleIcon className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
-                    Earn Tpoints for helpful answers, accepted solutions, or referrals
+                    Earn Tpoints for answers, solutions, or referrals
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -610,7 +610,7 @@ export default function HomePage() {
                     fontWeight: '600'
                   }}
                 >
-                  <strong>Why it matters:</strong> Keeps support accessible to all students while fostering a positive academic culture.
+                  <strong>Why it matters:</strong> Keeps support open to all students while building a positive academic culture.
                 </p>
               </div>
             </div>
@@ -642,13 +642,13 @@ export default function HomePage() {
                 <li className="flex items-start">
                   <CheckCircleIcon className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
-                    Rookies purchase Tpoints to post Tuto match requests
+                    Rookies buy Tpoints to post match requests
                   </span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircleIcon className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
-                    Direct message access to Tutos who've helped them before
+                    Direct message Tutos you've worked with before
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -660,7 +660,7 @@ export default function HomePage() {
                 <li className="flex items-start">
                   <CheckCircleIcon className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
-                    Cash out at a payout threshold or checkpoint (e.g., 100 Tp = $10)
+                    Cashout at a payout threshold (e.g 100Tp = $10)
                   </span>
                 </li>
                 
@@ -689,7 +689,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-white/60 pointer-events-none"></div>
         <div className="w-full relative z-10">
           <div className="text-center mb-12 sm:mb-16 px-4">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ 
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ 
               fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               color: '#374151'
             }}>
@@ -705,7 +705,7 @@ export default function HomePage() {
               </div>
               <div className="w-8 h-px bg-slate-500"></div>
             </div>
-            <p className="text-lg sm:text-xl max-w-3xl mx-auto" style={{ 
+            <p className="text-sm sm:text-base max-w-3xl mx-auto" style={{ 
               fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               color: '#6b7280'
             }}>
@@ -737,7 +737,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-white/60 pointer-events-none"></div>
         <div className="w-full relative z-10">
           <div className="text-center mb-8 sm:mb-12 px-4">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ 
+            <h2 className="text-xl sm:text-2xl font-bold mb-4" style={{ 
               fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               color: '#374151'
             }}>
@@ -753,7 +753,7 @@ export default function HomePage() {
               </div>
               <div className="w-8 h-px bg-slate-500"></div>
             </div>
-            <p className="text-base sm:text-lg max-w-3xl mx-auto" style={{ 
+            <p className="text-sm sm:text-base max-w-3xl mx-auto" style={{ 
               fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               color: '#6b7280'
             }}>
@@ -782,60 +782,60 @@ export default function HomePage() {
         {/* Content Overlay */}
         <div className="relative z-10 container mx-auto px-4">
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 px-4 leading-tight" style={{ fontFamily: 'Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 px-4 leading-tight" style={{ fontFamily: 'Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
               Powered by People. Perfected by AI.
             </h2>
-            <div className="text-sm sm:text-base md:text-lg text-gray-200 max-w-3xl mx-auto space-y-3 px-4 leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+            <div className="text-xs sm:text-sm md:text-base text-gray-200 max-w-3xl mx-auto space-y-3 px-4 leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
               <p>At Tuttora, we pair top-tier peer tutors with AI that improves every session.</p>
               <p className="font-semibold text-white">Real help for students. Real growth for tutors.</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-white/30">
-                <UsersIcon className="w-8 h-8 text-white" />
+            <div className="text-center p-4 sm:p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-white/30">
+                <UsersIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                 AI-Moderated Sessions
               </h3>
-              <p className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+              <p className="text-gray-200 text-xs sm:text-sm leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                 Every session is guided by smart AI to ensure focus, fairness, and quality.
               </p>
             </div>
 
-            <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-white/30">
-                <ArrowTrendingUpIcon className="w-8 h-8 text-white" />
+            <div className="text-center p-4 sm:p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-white/30">
+                <ArrowTrendingUpIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                 Real-Time Feedback
               </h3>
-              <p className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+              <p className="text-gray-200 text-xs sm:text-sm leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                 Tutors get instant insights after each session to continuously improve.
               </p>
             </div>
 
-            <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-white/30">
-                <ShieldCheckIcon className="w-8 h-8 text-white" />
+            <div className="hidden sm:block text-center p-4 sm:p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-white/30">
+                <ShieldCheckIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                 Ethics First
               </h3>
-              <p className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+              <p className="text-gray-200 text-xs sm:text-sm leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                 Academic integrity is built into every interaction.
               </p>
             </div>
 
-            <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-white/30">
-                <AcademicCapIcon className="w-8 h-8 text-white" />
+            <div className="hidden sm:block text-center p-4 sm:p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-white/30">
+                <AcademicCapIcon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2 leading-tight" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                 Campus-Ready
               </h3>
-              <p className="text-gray-200 text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+              <p className="text-gray-200 text-xs sm:text-sm leading-relaxed" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
                 Universities can integrate Tuttora as a service.
               </p>
             </div>
