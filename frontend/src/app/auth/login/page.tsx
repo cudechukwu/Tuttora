@@ -243,43 +243,36 @@ export default function LoginPage() {
         <div className="max-w-md w-full space-y-6">
           {/* Header */}
           <div className="text-center relative z-20">
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center mb-3">
               <div className="relative">
                 <Image
                   src="/images/logo/TP_Logo.png"
                   alt="Tuttora Logo"
-                  width={88}
-                  height={88}
+                  width={64}
+                  height={64}
                   className="drop-shadow-lg"
                 />
               </div>
             </div>
             
-            <h1 className="text-2xl font-bold mb-2" style={{ 
-              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-              color: '#1f2937',
-              fontWeight: '700'
-            }}>
+            <h1 className="text-lg font-semibold mb-2 text-gray-700">
             Welcome Back
             </h1>
-            <p className="text-base" style={{ 
-              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-              color: '#6b7280'
-            }}>
+            <p className="text-sm font-medium text-gray-500 tracking-tight italic font-serif">
               Sign in to continue your learning journey
           </p>
         </div>
 
         {/* Auto-login Loading State */}
         {autoLoginLoading && (
-          <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-2xl p-8 text-center relative z-20 shadow-xl">
+          <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-2xl p-6 text-center relative z-20 shadow-xl">
             <div className="flex flex-col items-center space-y-4">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-base font-semibold text-gray-700 mb-2">
                   Logging you in automatically...
                 </h3>
-                <p className="text-gray-700 text-sm">
+                <p className="text-gray-600 text-sm">
                   Please wait while we sign you in from your recent registration
                 </p>
               </div>
@@ -338,7 +331,7 @@ export default function LoginPage() {
         
         {/* Form Card - Only show when not auto-logging in */}
         {!autoLoginLoading && (
-          <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-2xl p-6 relative z-20 shadow-xl">
+          <div className="backdrop-blur-md bg-white/30 border border-white/20 rounded-2xl p-5 relative z-20 shadow-xl">
             <form className="space-y-5" onSubmit={handleSubmit}>
           {errors.general && (
                 <div className="backdrop-blur-sm bg-red-500/10 border border-red-300/30 rounded-xl p-3 animate-shake">
@@ -492,9 +485,9 @@ export default function LoginPage() {
 
           {/* Footer */}
           <div className="text-center relative z-20">
-            <div className="flex items-center justify-center space-x-4 text-sm text-gray-600 backdrop-blur-md bg-white/30 border border-white/20 rounded-xl px-4 py-2 shadow-lg">
+            <div className="flex items-center justify-center space-x-3 text-xs text-gray-500 backdrop-blur-md bg-white/30 border border-white/20 rounded-xl px-3 py-2 shadow-lg">
               <div className="flex items-center">
-                <Users className="w-4 h-4 mr-1" />
+                <Users className="w-3 h-3 mr-1" />
                 <span>Join 3,000+ students</span>
               </div>
               <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
@@ -502,8 +495,8 @@ export default function LoginPage() {
                 <Image
                   src="/images/logo/TP_Logo.png"
                   alt="Tuttora"
-                  width={16}
-                  height={16}
+                  width={12}
+                  height={12}
                   className="mr-1"
                 />
                 <span>50+ subjects covered</span>
