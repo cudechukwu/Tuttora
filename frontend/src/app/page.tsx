@@ -901,11 +901,11 @@ export default function HomePage() {
                   {/* University Logo */}
                   <div className="flex-shrink-0">
                     <Image
-                  src="/images/landing/theteam/lucido.jpg"
-                  alt="Jack Lucido"
+                  src="/images/landing/partnership-logos/wesleyanUniversity.png"
+                  alt="Wesleyan University Logo"
                       width={80}
                       height={80}
-                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-sm rounded-full"
+                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-sm"
                     />
                   </div>
                   
@@ -915,29 +915,28 @@ export default function HomePage() {
                     From one student to another
                     </p>
                     <p className="text-xs text-gray-500" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
-                      "Built by Cardinals, for more than just Cardinals" - Jack Lucido, Co Founder
+                      "Built by Cardinals, for more than just Cardinals"
                     </p>
               </div>
             </div>
-              {/* Professor Advisor - Right Side - Temporarily Hidden
+              {/* Co Founder - Right Side */}
                 <div className="flex-shrink-0 text-center lg:mr-8">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full mx-auto mb-3 overflow-hidden">
                     <Image
-                      src="/images/landing/theteam/gravity_goldberg.png"
-                      alt="Gravity Goldberg"
+                      src="/images/landing/theteam/lucido.jpg"
+                      alt="Jack Lucido"
                       width={64}
                       height={64}
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <p className="text-sm text-gray-600 font-semibold" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
-                    Gravity Goldberg
+                    Jack Lucido
                   </p>
                   <p className="text-xs text-gray-500" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
-                    Professor Advisor
+                    Co Founder
                   </p>
                 </div>
-              */}
               </div>
             </div>
           </div>
