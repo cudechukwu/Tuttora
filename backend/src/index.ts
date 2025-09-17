@@ -79,6 +79,8 @@ app.use(helmet());
 app.use(cors({
   origin: [
     process.env.FRONTEND_URL || "http://localhost:3000",
+    "https://tuttora.app",
+    "https://www.tuttora.app",
     "https://tuttora-frontend.vercel.app",
     "https://tuttora-frontend-git-main-cudechukwu.vercel.app",
     "http://localhost:3001",
