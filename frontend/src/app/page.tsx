@@ -901,11 +901,11 @@ export default function HomePage() {
                   {/* University Logo */}
                   <div className="flex-shrink-0">
                     <Image
-                  src="/images/landing/partnership-logos/wesleyanUniversity.png"
-                  alt="Wesleyan University Logo"
+                  src="/images/landing/theteam/lucido.jpg"
+                  alt="Jack Lucido"
                       width={80}
                       height={80}
-                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-sm"
+                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-sm rounded-full"
                     />
                   </div>
                   
@@ -915,7 +915,7 @@ export default function HomePage() {
                     From one student to another
                     </p>
                     <p className="text-xs text-gray-500" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
-                      "Built by Cardinals, for more than just Cardinals"
+                      "Built by Cardinals, for more than just Cardinals" - Jack Lucido, Co Founder
                     </p>
               </div>
             </div>
