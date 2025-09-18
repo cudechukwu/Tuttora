@@ -111,3 +111,6 @@ async function analyzeDepartments() {
 
 // Run the script
 analyzeDepartments();
+
+
+

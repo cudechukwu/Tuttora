@@ -856,7 +856,7 @@ export default function HomePage() {
               <div className="flex-shrink-0">
                 <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden shadow-xl">
                   <Image
-                    src="/images/landing/theteam/founder.png"
+                    src="/images/landing/theteam/founder.jpg"
                     alt="Chukwudi Udechukwu, Founder of Tuttora"
                     width={192}
                     height={192}
