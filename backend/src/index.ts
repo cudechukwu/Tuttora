@@ -83,6 +83,7 @@ app.use(cors({
     "https://www.tuttora.app",
     "https://tuttora-frontend.vercel.app",
     "https://tuttora-frontend-git-main-cudechukwu.vercel.app",
+    "https://tuttora-production.up.railway.app",
     "http://localhost:3001",
     "http://localhost:3002", 
     "http://localhost:3003",
