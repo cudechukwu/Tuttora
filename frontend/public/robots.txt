@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://tuttora.app/sitemap.xml
+
+# Allow all search engines to crawl
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
