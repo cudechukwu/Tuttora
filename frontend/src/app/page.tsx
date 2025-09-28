@@ -326,11 +326,15 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-transparent">
-      {/* Consolidated Vimeo Video Background - Spans Full Page */}
+      {/* Local Video Background - Spans Full Page */}
       <div className="fixed inset-0 z-0 w-full h-full overflow-hidden">
-        <iframe
-          src="https://player.vimeo.com/video/1103292463?background=1&autoplay=1&loop=1&byline=0&title=0&autopause=0&muted=1"
-          className="w-full h-full"
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover"
           style={{ 
             filter: 'brightness(0.7) contrast(1.1)',
             pointerEvents: 'none',
@@ -343,10 +347,10 @@ export default function HomePage() {
             minWidth: '100vw',
             minHeight: '100vh'
           }}
-          frameBorder="0"
-          allow="autoplay; fullscreen"
-          title="Tuttora Landing Video"
-        />
+        >
+          <source src="/videos/landing/landingCover.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
       </div>
@@ -695,6 +699,9 @@ export default function HomePage() {
             }}>
               Students trust Tuttora for smarter support.
             </h2>
+            <p className="text-xs text-gray-500 italic mb-4">
+              *Testimonials represent typical user experiences
+            </p>
             <div className="flex items-center justify-center mb-6">
               <div className="w-8 h-px bg-slate-500"></div>
               <div className="mx-4">
@@ -743,6 +750,9 @@ export default function HomePage() {
             }}>
               Students trust Tuttora for smarter support.
             </h2>
+            <p className="text-xs text-gray-500 italic mb-4">
+              *Testimonials represent typical user experiences
+            </p>
             <div className="flex items-center justify-center mb-6">
               <div className="w-8 h-px bg-slate-500"></div>
               <div className="mx-4">
@@ -944,29 +954,6 @@ export default function HomePage() {
       </section>
 
 
-
-      {/* CTA Section */}
-      <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden z-10">
-        {/* Content Overlay */}
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-white px-4 leading-tight" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
-            Ready to Transform Your Learning Journey?
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto px-4 leading-relaxed" style={{ fontFamily: 'Suisse Intl, Arial, sans-serif' }}>
-            Join thousands of students who are already learning smarter, supporting each other, and growing together.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-            <Link href="/auth/register" className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-3.5 rounded-xl text-xs sm:text-sm md:text-base font-semibold hover:bg-white/30 transition-colors flex items-center justify-center font-suisse whitespace-nowrap">
-              Start Your Journey
-              <ArrowRight className="ml-2 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-            </Link>
-            <Link href="/auth/login" className="text-white px-3 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-3.5 rounded-xl text-xs sm:text-sm md:text-base font-semibold hover:text-blue-300 transition-colors flex items-center justify-center font-suisse whitespace-nowrap">
-              Sign In
-              <ArrowRight className="ml-2 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="relative bg-gray-600 text-white py-8 sm:py-12 border-t border-gray-500 z-30">

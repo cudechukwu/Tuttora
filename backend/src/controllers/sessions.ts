@@ -4,6 +4,7 @@ import { SessionStatus } from '@prisma/client';
 import { SessionService } from '../services/sessionService';
 import { dailyService } from '../services/dailyService';
 import { DashboardService } from '../services/dashboardService';
+import { emailNotificationService } from '../services/emailNotificationService';
 
 
 const prisma = new PrismaClient();
@@ -130,7 +131,13 @@ export const createSessionRequest = async (req: Request, res: Response) => {
       });
     }
 
-
+    // Send admin notification for new session request
+    try {
+      await emailNotificationService.notifySessionRequest(sessionRequest.id);
+    } catch (emailError) {
+      console.error('Failed to send session request notification email:', emailError);
+      // Don't fail the request if email fails
+    }
 
     res.status(201).json({
       message: 'Session request created successfully',
@@ -820,7 +827,13 @@ export const acceptSessionRequest = async (req: Request, res: Response) => {
       });
     }
 
-
+    // Send admin notification for session acceptance
+    try {
+      await emailNotificationService.notifySessionAcceptance(requestId);
+    } catch (emailError) {
+      console.error('Failed to send session acceptance notification email:', emailError);
+      // Don't fail the acceptance if email fails
+    }
 
     res.json({
       message: 'Session request accepted successfully',
@@ -1278,6 +1291,14 @@ export const endSession = async (req: Request, res: Response) => {
         where: { id: session.tutoId },
         data: { sessionCount: { increment: 1 } }
       });
+    }
+
+    // Send admin notification for session completion
+    try {
+      await emailNotificationService.notifySessionCompletion(sessionId);
+    } catch (emailError) {
+      console.error('Failed to send session completion notification email:', emailError);
+      // Don't fail the completion if email fails
     }
 
     // Emit real-time update

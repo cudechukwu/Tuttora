@@ -137,4 +137,24 @@ export const deductTpoints = async (req: Request, res: Response) => {
       error: 'Failed to deduct Tpoints' 
     });
   }
+};
+
+// Admin analytics endpoint - ADMIN ONLY
+export const getAdminAnalytics = async (req: Request, res: Response) => {
+  try {
+    // Admin middleware already verified admin access
+    const analytics = await DashboardService.getAdminAnalytics();
+
+    res.json({
+      success: true,
+      data: analytics,
+      message: 'Admin analytics retrieved successfully'
+    });
+  } catch (error) {
+    console.error('Admin analytics error:', error);
+    res.status(500).json({ 
+      error: 'Failed to fetch admin analytics',
+      message: 'An error occurred while retrieving analytics data'
+    });
+  }
 }; 

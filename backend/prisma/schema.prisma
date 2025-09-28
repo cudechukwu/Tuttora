@@ -15,6 +15,7 @@ model User {
   firstName              String
   lastName               String
   role                   UserRole             @default(ROOKIE)
+  isAdmin                Boolean              @default(false)
   isOnline               Boolean              @default(false)
   isAvailable            Boolean              @default(false)
   lastSeen               DateTime             @default(now())

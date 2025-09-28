@@ -32,7 +32,104 @@ export interface SessionRating {
   courseTitle?: string;
 }
 
+export interface AdminAnalytics {
+  totalUsers: number;
+  totalTutos: number;
+  totalRookies: number;
+  totalBothRole: number;
+  usersRegisteredToday: number;
+  usersRegisteredThisWeek: number;
+  usersRegisteredThisMonth: number;
+  totalSessions: number;
+  completedSessions: number;
+  activeSessions: number;
+  totalUniversities: number;
+  totalCourses: number;
+  registrationTrend: {
+    date: string;
+    count: number;
+  }[];
+}
+
 export class DashboardService {
+  /**
+   * Get admin analytics (total user count and other platform metrics)
+   */
+  static async getAdminAnalytics(): Promise<AdminAnalytics> {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekStart = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    // Get all user counts in parallel
+    const [
+      totalUsers,
+      totalTutos,
+      totalRookies,
+      totalBothRole,
+      usersRegisteredToday,
+      usersRegisteredThisWeek,
+      usersRegisteredThisMonth,
+      totalSessions,
+      completedSessions,
+      activeSessions,
+      totalUniversities,
+      totalCourses,
+      registrationTrend
+    ] = await Promise.all([
+      // Total users count
+      prisma.user.count(),
+      
+      // Users by role
+      prisma.user.count({ where: { role: 'TUTO' } }),
+      prisma.user.count({ where: { role: 'ROOKIE' } }),
+      prisma.user.count({ where: { role: 'BOTH' } }),
+      
+      // Registration counts by time period
+      prisma.user.count({ where: { createdAt: { gte: todayStart } } }),
+      prisma.user.count({ where: { createdAt: { gte: weekStart } } }),
+      prisma.user.count({ where: { createdAt: { gte: monthStart } } }),
+      
+      // Session statistics
+      prisma.session.count(),
+      prisma.session.count({ where: { status: 'COMPLETED' } }),
+      prisma.session.count({ where: { status: 'IN_PROGRESS' } }),
+      
+      // Platform content
+      prisma.university.count(),
+      prisma.course.count(),
+      
+      // Registration trend for the last 30 days
+      prisma.$queryRaw<{date: Date, count: bigint}[]>`
+        SELECT DATE(created_at) as date, COUNT(*) as count
+        FROM users 
+        WHERE created_at >= NOW() - INTERVAL 30 DAY
+        GROUP BY DATE(created_at)
+        ORDER BY date DESC
+        LIMIT 30
+      `
+    ]);
+
+    return {
+      totalUsers,
+      totalTutos,
+      totalRookies,
+      totalBothRole,
+      usersRegisteredToday,
+      usersRegisteredThisWeek,
+      usersRegisteredThisMonth,
+      totalSessions,
+      completedSessions,
+      activeSessions,
+      totalUniversities,
+      totalCourses,
+      registrationTrend: registrationTrend.map(row => ({
+        date: row.date.toISOString().split('T')[0],
+        count: Number(row.count)
+      }))
+    };
+  }
+
   /**
    * Get comprehensive dashboard stats for a user (OPTIMIZED)
    * Uses precomputed aggregates instead of recalculating from scratch

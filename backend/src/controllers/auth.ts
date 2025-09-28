@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import { generateTokens, hashPassword, comparePassword, generateUsername, validateEmail, validatePassword } from '../utils/auth';
+import { emailNotificationService } from '../services/emailNotificationService';
 
 const prisma = new PrismaClient();
 
@@ -223,6 +224,14 @@ export const register = async (req: Request, res: Response) => {
 
     // Generate tokens
     const { accessToken, refreshToken } = generateTokens(user.id);
+
+    // Send admin notification for new user registration
+    try {
+      await emailNotificationService.notifyUserRegistration(user.id);
+    } catch (emailError) {
+      console.error('Failed to send registration notification email:', emailError);
+      // Don't fail the registration if email fails
+    }
 
     res.status(201).json({
       message: 'User registered successfully',

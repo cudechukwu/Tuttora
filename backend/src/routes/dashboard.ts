@@ -4,9 +4,11 @@ import {
   getSessionHistory, 
   getLeaderboard,
   awardTpoints,
-  deductTpoints
+  deductTpoints,
+  getAdminAnalytics
 } from '../controllers/dashboard';
 import { authenticateToken } from '../middleware/auth';
+import { requireAdmin } from '../middleware/adminAuth';
 
 const router = express.Router();
 
@@ -19,11 +21,14 @@ router.get('/stats', getDashboardStats);
 // Get user's session history with ratings and feedback
 router.get('/session-history', getSessionHistory);
 
-// Award Tpoints to user (admin functionality)
-router.post('/award-tpoints', awardTpoints);
+// Get admin analytics (user counts, platform statistics) - ADMIN ONLY
+router.get('/admin-analytics', requireAdmin, getAdminAnalytics);
 
-// Deduct Tpoints from user
-router.post('/deduct-tpoints', deductTpoints);
+// Award Tpoints to user (admin functionality) - ADMIN ONLY
+router.post('/award-tpoints', requireAdmin, awardTpoints);
+
+// Deduct Tpoints from user - ADMIN ONLY
+router.post('/deduct-tpoints', requireAdmin, deductTpoints);
 
 // Public routes - no authentication required
 // Get leaderboard (public)

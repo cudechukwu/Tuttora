@@ -68,6 +68,29 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "VideoObject",
+              "name": "Tuttora Platform Demo",
+              "description": "See how Tuttora connects students with peer tutors for real-time academic assistance",
+              "thumbnailUrl": "https://tuttora.app/images/landing/section/whitesection.jpg",
+              "uploadDate": "2024-01-01",
+              "contentUrl": "https://tuttora.app/videos/landing/landingCover.mp4",
+              "embedUrl": "https://tuttora.app/videos/landing/landingCover.mp4",
+              "duration": "PT1M30S",
+              "publisher": {
+                "@type": "Organization",
+                "name": "Tuttora",
+                "url": "https://tuttora.app"
+              }
+            })
+          }}
+        />
+      </head>
       <body className={`${inter.className} ${ubuntu.variable}`}>
         <SocketProviderWrapper>
           <ToastProvider>
