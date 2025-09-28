@@ -716,7 +716,7 @@ export default function HomePage() {
               fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               color: '#6b7280'
             }}>
-              Real stories from students who've used Rookie and Tuto to get the help they needed, when they needed it.
+              Hear from students who have used Rookie and Tuto to get the help they needed, when they needed it.
             </p>
           </div>
 
@@ -767,7 +767,7 @@ export default function HomePage() {
               fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
               color: '#6b7280'
             }}>
-              Real stories from students who've used Rookie and Tuto to get the help they needed, when they needed it.
+              Hear from students who have used Rookie and Tuto to get the help they needed, when they needed it.
             </p>
           </div>
 
@@ -866,7 +866,7 @@ export default function HomePage() {
               <div className="flex-shrink-0">
                 <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full overflow-hidden shadow-xl">
                   <Image
-                    src="/images/landing/theteam/founder.jpg"
+                    src="/images/landing/theteam/chukwudi1.png"
                     alt="Chukwudi Udechukwu, Founder of Tuttora"
                     width={192}
                     height={192}
