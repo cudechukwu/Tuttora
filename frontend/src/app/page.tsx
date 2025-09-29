@@ -933,7 +933,7 @@ export default function HomePage() {
                 <div className="flex-shrink-0 text-center lg:mr-8">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full mx-auto mb-3 overflow-hidden">
                     <Image
-                      src="/images/landing/theteam/lucido.jpg"
+                      src="/images/landing/theteam/JackLucido.jpeg"
                       alt="Jack Lucido"
                       width={64}
                       height={64}
