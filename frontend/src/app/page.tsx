@@ -700,7 +700,7 @@ export default function HomePage() {
               Students trust Tuttora for smarter support.
             </h2>
             <p className="text-xs text-gray-500 italic mb-4">
-              *Testimonials represent typical user experiences
+              *(Placeholder) Testimonials represent typical user experiences
             </p>
             <div className="flex items-center justify-center mb-6">
               <div className="w-8 h-px bg-slate-500"></div>
@@ -751,7 +751,7 @@ export default function HomePage() {
               Students trust Tuttora for smarter support.
             </h2>
             <p className="text-xs text-gray-500 italic mb-4">
-              *Testimonials represent typical user experiences
+              *(Placeholder) Testimonials represent typical user experiences
             </p>
             <div className="flex items-center justify-center mb-6">
               <div className="w-8 h-px bg-slate-500"></div>
